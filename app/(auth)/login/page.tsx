@@ -5,14 +5,18 @@ import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
-export default function LoginPage() {
+function LoginContent() {
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const supabase = createClient()
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const unauthorized = searchParams.get('error') === 'unauthorized'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -60,6 +64,14 @@ export default function LoginPage() {
             Enter your credentials to access your dashboard
           </p>
         </div>
+
+        {unauthorized && (
+          <div className="mb-6 rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-center">
+            <p className="text-sm font-semibold text-destructive">
+              Access Denied: Only the system Administrator account can access the workspace dashboard.
+            </p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
@@ -131,5 +143,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-[calc(100vh-4rem)] items-center justify-center p-4"><Loader2 className="h-8 w-8 animate-spin text-accent" /></div>}>
+      <LoginContent />
+    </Suspense>
   )
 }
