@@ -1,0 +1,6 @@
+{
+  "name": "TargetBand",
+  "description": "IELTS Score & Band Tracker - Converter, Overall Calculator, Gap Calculator, and Practice Logger.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
