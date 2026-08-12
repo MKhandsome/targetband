@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, PenLine, Target, ChevronLeft, LogOut } from "lucide-react"
+import { LayoutDashboard, PenLine, Target, ChevronLeft, LogOut, History, LineChart } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 
@@ -15,8 +15,9 @@ export default function DashboardSidebar({ email }: { email: string }) {
 
   const links = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Score Logger", href: "/dashboard/log", icon: PenLine },
-    { name: "Target Management", href: "/dashboard/goals", icon: Target },
+    { name: "Target Goals", href: "/dashboard/targets", icon: Target },
+    { name: "Test History", href: "/dashboard/history", icon: History },
+    { name: "Performance Analytics", href: "/dashboard/analytics", icon: LineChart },
   ]
 
   const handleSignOut = async () => {

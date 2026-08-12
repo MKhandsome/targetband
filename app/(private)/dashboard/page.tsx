@@ -1,152 +1,148 @@
-"use client"
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { GoalProgressCard } from '@/components/dashboard/GoalProgressCard'
+import { ScoreTrendChart } from '@/components/dashboard/ScoreTrendChart'
+import { ActivityHeatmap, DayActivity } from '@/components/dashboard/ActivityHeatmap'
+import Link from 'next/link'
+import { format, subDays, startOfToday } from 'date-fns'
 
-import { Users, Activity, DollarSign, Search, Filter } from "lucide-react"
-import { toast } from "sonner"
-import { motion } from "motion/react"
+export const metadata = {
+  title: 'Dashboard | TargetBand',
+}
 
-export default function DashboardPage() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
+// Generate an array of the last 365 days up to today
+function generateLast365DaysMap(): Map<string, number> {
+  const map = new Map<string, number>()
+  const today = startOfToday()
+  // Generate 371 days (53 weeks * 7 days) to fill the grid perfectly
+  for (let i = 370; i >= 0; i--) {
+    const d = subDays(today, i)
+    map.set(format(d, 'yyyy-MM-dd'), 0)
+  }
+  return map
+}
+
+export default async function DashboardOverview() {
+  const cookieStore = await cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        }
+      }
+    }
+  )
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    redirect('/login')
+  }
+
+  // 1. Fetch Active Goal
+  const { data: goalData } = await supabase
+    .from('user_goals')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('is_active', true)
+    .single()
+
+  // 2. Fetch all scores for the trend chart and heatmap
+  const { data: scoresData } = await supabase
+    .from('test_scores')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('test_date', { ascending: true }) // Ascending for the chart
+
+  const scores = scoresData || []
+
+  // 3. Process data for Heatmap (371 days rolling)
+  const heatmapMap = generateLast365DaysMap()
+  scores.forEach(score => {
+    const dateStr = score.test_date // assuming YYYY-MM-DD
+    if (heatmapMap.has(dateStr)) {
+      heatmapMap.set(dateStr, heatmapMap.get(dateStr)! + 1)
+    }
+  })
+  
+  const heatmapDays: DayActivity[] = Array.from(heatmapMap.entries()).map(([date, entryCount]) => ({
+    date,
+    entryCount
+  }))
+
+  // 4. Calculate Current Averages (using the 5 most recent tests for a rolling average)
+  let averages = null
+  if (scores.length > 0) {
+    const recentScores = scores.slice(-5) // get the last 5 tests
+    const count = recentScores.length
+    averages = {
+      overall_score: recentScores.reduce((sum, s) => sum + Number(s.overall_score), 0) / count,
+      listening_score: recentScores.reduce((sum, s) => sum + Number(s.listening_score), 0) / count,
+      reading_score: recentScores.reduce((sum, s) => sum + Number(s.reading_score), 0) / count,
+      writing_score: recentScores.reduce((sum, s) => sum + Number(s.writing_score), 0) / count,
+      speaking_score: recentScores.reduce((sum, s) => sum + Number(s.speaking_score), 0) / count,
     }
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } }
-  }
-
   return (
-    <div className="space-y-6 max-w-6xl mx-auto">
-      <div>
-        <motion.h1 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="text-3xl font-bold tracking-tight"
-        >
-          Overview
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-muted-foreground mt-1"
-        >
-          Here's what's happening with your platform today.
-        </motion.p>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Dashboard Overview</h1>
+          <p className="text-muted-foreground mt-2">
+            Track your IELTS practice consistency and skill progress.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <Link 
+            href="/dashboard/goals"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-white/10 bg-card px-4 py-2 text-sm font-medium transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            Manage Goals
+          </Link>
+          <Link 
+            href="/dashboard/log"
+            className="inline-flex h-10 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-bold text-accent-foreground shadow-md transition-all hover:bg-accent/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            Log Test Score
+          </Link>
+        </div>
       </div>
 
-      {/* Stats Widgets */}
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
-      >
-        <motion.div variants={itemVariants} className="bg-card rounded-xl border border-border/50 p-6 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-medium text-sm text-muted-foreground">Total Users</h3>
-            <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
-              <Users className="h-4 w-4 text-primary" />
-            </div>
-          </div>
-          <div className="text-3xl font-bold">14,293</div>
-          <div className="text-xs text-primary mt-2 font-medium bg-primary/10 inline-block px-2 py-0.5 rounded-full">+12.5% from last month</div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="bg-card rounded-xl border border-border/50 p-6 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-medium text-sm text-muted-foreground">Active Sessions</h3>
-            <div className="h-8 w-8 rounded-md bg-accent/10 flex items-center justify-center">
-              <Activity className="h-4 w-4 text-accent" />
-            </div>
-          </div>
-          <div className="text-3xl font-bold">2,543</div>
-          <div className="text-xs text-primary mt-2 font-medium bg-primary/10 inline-block px-2 py-0.5 rounded-full">+5.2% from last week</div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="bg-card rounded-xl border border-border/50 p-6 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-medium text-sm text-muted-foreground">Revenue</h3>
-            <div className="h-8 w-8 rounded-md bg-yellow-500/10 flex items-center justify-center">
-              <DollarSign className="h-4 w-4 text-yellow-500" />
-            </div>
-          </div>
-          <div className="text-3xl font-bold">$42,891.00</div>
-          <div className="text-xs text-primary mt-2 font-medium bg-primary/10 inline-block px-2 py-0.5 rounded-full">+18.1% from last month</div>
-        </motion.div>
-      </motion.div>
-
-      {/* Data Table */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="bg-card rounded-xl border border-border/50 shadow-sm overflow-hidden"
-      >
-        <div className="p-6 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h2 className="text-lg font-bold">Recent Signups</h2>
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <input 
-                type="text" 
-                placeholder="Search users..." 
-                className="h-9 w-full sm:w-64 rounded-md border border-input bg-background px-8 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              />
-            </div>
-            <button 
-              onClick={() => toast.info("Filter functionality coming soon!")}
-              className="h-9 px-3 rounded-md border border-input bg-background hover:bg-muted text-sm font-medium flex items-center gap-2 shadow-sm transition-colors"
-            >
-              <Filter className="h-4 w-4" />
-              <span className="hidden sm:inline">Filter</span>
-            </button>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column: Goal Progress */}
+        <div className="lg:col-span-1 flex flex-col min-h-0">
+          <GoalProgressCard goal={goalData} averages={averages} />
         </div>
-        
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border/50">
-              <tr>
-                <th className="px-6 py-3.5 font-semibold">User</th>
-                <th className="px-6 py-3.5 font-semibold">Status</th>
-                <th className="px-6 py-3.5 font-semibold">Plan</th>
-                <th className="px-6 py-3.5 font-semibold text-right">Joined Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { name: "Alice Johnson", email: "alice@example.com", status: "Active", plan: "Pro", date: "Oct 24, 2026" },
-                { name: "Bob Smith", email: "bob@example.com", status: "Inactive", plan: "Free", date: "Oct 23, 2026" },
-                { name: "Charlie Davis", email: "charlie@example.com", status: "Active", plan: "Pro", date: "Oct 22, 2026" },
-                { name: "Diana Evans", email: "diana@example.com", status: "Active", plan: "Free", date: "Oct 21, 2026" },
-                { name: "Evan Wright", email: "evan@example.com", status: "Pending", plan: "Pro", date: "Oct 20, 2026" },
-              ].map((user, idx) => (
-                <tr key={idx} className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="font-medium text-foreground">{user.name}</div>
-                    <div className="text-muted-foreground">{user.email}</div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                      user.status === 'Active' ? 'bg-primary/10 text-primary border border-primary/20' : 
-                      user.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' : 
-                      'bg-muted text-muted-foreground border border-border/50'
-                    }`}>
-                      {user.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">{user.plan}</td>
-                  <td className="px-6 py-4 text-right text-muted-foreground">{user.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+        {/* Right Column: Chart & Heatmap */}
+        <div className="lg:col-span-2 flex flex-col gap-6 min-h-0">
+          <ScoreTrendChart data={scores} targetScore={goalData?.target_overall} />
+          <ActivityHeatmap days={heatmapDays} />
         </div>
-      </motion.div>
+      </div>
+      
+      {/* Empty State Overlay if no scores at all */}
+      {scores.length === 0 && (
+        <div className="mt-12 rounded-2xl border border-dashed border-white/20 bg-white/5 p-12 text-center flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-muted-foreground mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bar-chart-3"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+          </div>
+          <h2 className="text-2xl font-bold text-foreground mb-3">No test data yet</h2>
+          <p className="text-muted-foreground max-w-md mx-auto mb-8">
+            You haven't logged any practice test scores yet. Your charts and averages will populate automatically once you start practicing!
+          </p>
+          <Link 
+            href="/dashboard/log"
+            className="inline-flex h-11 items-center justify-center rounded-md bg-accent px-8 py-2 text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition-all hover:bg-accent/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            Log Your First Score
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
