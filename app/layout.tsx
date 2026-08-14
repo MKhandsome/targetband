@@ -7,8 +7,33 @@ import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'TargetBand — Master Your IELTS Score',
-  description: 'Instant IELTS score converter, overall band calculator, gap analyzer, and practice tracker designed to help you achieve your target band faster and with confidence.',
+  title: {
+    template: '%s | TargetBand',
+    default: 'TargetBand | Master Your IELTS Band Score',
+  },
+  description: 'Instant IELTS raw score converter, overall band calculator, gap analyzer, and progress tracker.',
+  openGraph: {
+    title: 'TargetBand | Master Your IELTS Band Score',
+    description: 'Instant IELTS raw score converter, overall band calculator, gap analyzer, and progress tracker.',
+    url: 'https://targetband.com',
+    siteName: 'TargetBand',
+    images: [
+      {
+        url: '/og-image.jpg', // Placeholder for OG image
+        width: 1200,
+        height: 630,
+        alt: 'TargetBand Dark Mode Banner',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'TargetBand | Master Your IELTS Band Score',
+    description: 'Instant IELTS raw score converter, overall band calculator, gap analyzer, and progress tracker.',
+    images: ['/og-image.jpg'],
+  },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',

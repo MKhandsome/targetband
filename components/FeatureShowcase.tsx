@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Target, TrendingUp, Zap, Calculator, BarChart, CheckCircle } from "lucide-react"
 import { motion } from "motion/react"
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts"
 
 export default function FeatureShowcase() {
   const [activeTab, setActiveTab] = useState("calculator")
@@ -78,7 +79,7 @@ export default function FeatureShowcase() {
       </motion.div>
 
       {/* Interactive Demo Section */}
-      <div className="rounded-2xl border border-border/50 bg-card shadow-xl overflow-hidden ring-1 ring-border/50 flex flex-col md:flex-row">
+      <div id="interactive-demo" className="rounded-2xl border border-border/50 bg-card shadow-xl overflow-hidden ring-1 ring-border/50 flex flex-col md:flex-row scroll-mt-24">
         {/* Sidebar / Tabs */}
         <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-border/50 p-4 md:p-6 bg-muted/20 space-y-2">
           <div className="mb-6">
@@ -164,26 +165,41 @@ export default function FeatureShowcase() {
            )}
 
            {activeTab === "tracker" && (
-             <div className="w-full h-full flex flex-col justify-end gap-2 pt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 z-10">
-                <div className="flex justify-between items-end h-48 w-full border-b border-l border-border/50 pb-2 pl-2">
-                   {[6.0, 6.5, 6.5, 7.0, 7.5, 7.5].map((score, idx) => (
-                      <div key={idx} className="flex flex-col items-center gap-2 group w-1/6">
-                        <div className="text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity -translate-y-2 bg-popover text-popover-foreground px-2 py-1 rounded shadow-md border border-border/50">{score}</div>
-                        <div 
-                          className="w-8 md:w-12 bg-gradient-to-t from-primary/80 to-primary rounded-t-md transition-all duration-700 hover:brightness-110 shadow-sm" 
-                          style={{ height: `${((score - 5) / 3.5) * 100}%` }}
-                        ></div>
-                      </div>
-                   ))}
-                </div>
-                <div className="flex justify-between w-full pl-2 text-xs text-muted-foreground mt-2 font-mono">
-                   <span>M1</span>
-                   <span>M2</span>
-                   <span>M3</span>
-                   <span>M4</span>
-                   <span>M5</span>
-                   <span className="text-primary font-bold">Now</span>
-                </div>
+             <div className="w-full h-full flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 z-10 pt-8">
+               <div className="h-64 w-full relative">
+                 <ResponsiveContainer width="100%" height="100%">
+                   <LineChart 
+                     data={[
+                       { name: 'M1', score: 6.0 },
+                       { name: 'M2', score: 6.5 },
+                       { name: 'M3', score: 6.5 },
+                       { name: 'M4', score: 7.0 },
+                       { name: 'M5', score: 7.5 },
+                       { name: 'Now', score: 7.5 }
+                     ]}
+                     margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
+                   >
+                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
+                     <XAxis dataKey="name" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} />
+                     <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} domain={[5.0, 9.0]} tickCount={5} tickLine={false} axisLine={false} />
+                     <Tooltip 
+                       contentStyle={{ backgroundColor: '#171717', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
+                       itemStyle={{ color: '#10B981', fontWeight: 'bold' }}
+                     />
+                     <Line 
+                       type="monotone" 
+                       dataKey="score" 
+                       stroke="#10B981" 
+                       strokeWidth={4} 
+                       dot={{ r: 6, fill: "#10B981", strokeWidth: 2, stroke: "#000" }}
+                       activeDot={{ r: 8, fill: "#8B5CF6", stroke: "#000" }}
+                       isAnimationActive={true}
+                       animationDuration={1500}
+                       animationEasing="ease-in-out"
+                     />
+                   </LineChart>
+                 </ResponsiveContainer>
+               </div>
              </div>
            )}
         </div>

@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { ArrowRight, Play } from "lucide-react"
-import { toast } from "sonner"
 import FeatureShowcase from "@/components/FeatureShowcase"
 
 export default function Home() {
@@ -36,14 +35,14 @@ export default function Home() {
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
           <Link
-            href="/dashboard"
-            onClick={() => toast.success("Welcome to TargetBand! Redirecting...")}
+            href="/tools"
+            prefetch={true}
             className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 shadow-md shadow-primary/20"
           >
             Get Started <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
           <Link
-            href="#demo"
+            href="#interactive-demo"
             className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-border bg-background hover:bg-muted hover:text-foreground h-11 px-8"
           >
             <Play className="mr-2 h-4 w-4" /> View Demo

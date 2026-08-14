@@ -5,11 +5,31 @@ import Link from 'next/link'
 import { AnalyticsChart } from './AnalyticsChart'
 import { TrendingUp, TrendingDown, Target, BrainCircuit, LineChart } from 'lucide-react'
 
+import { Suspense } from 'react'
+import DashboardLoading from '../loading'
+
 export const metadata = {
   title: 'Performance Analytics | TargetBand',
 }
 
-export default async function AnalyticsPage() {
+export default function AnalyticsPage() {
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto p-4 md:p-8">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Performance Analytics</h1>
+        <p className="text-muted-foreground mt-2">
+          Deep dive into your progression matrices and identify critical growth areas.
+        </p>
+      </div>
+
+      <Suspense fallback={<DashboardLoading />}>
+        <AnalyticsData />
+      </Suspense>
+    </div>
+  )
+}
+
+async function AnalyticsData() {
   const cookieStore = await cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -105,14 +125,7 @@ export default async function AnalyticsPage() {
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Performance Analytics</h1>
-        <p className="text-muted-foreground mt-2">
-          Deep dive into your progression matrices and identify critical growth areas.
-        </p>
-      </div>
-
+    <>
       {hasScores ? (
         <>
           {/* Executive Summaries Banner */}
@@ -181,12 +194,13 @@ export default async function AnalyticsPage() {
           </p>
           <Link 
             href="/dashboard/log"
+            prefetch={true}
             className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-8 py-2 text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition-all hover:bg-accent/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             Log Your First Score
           </Link>
         </div>
       )}
-    </div>
+    </>
   )
 }

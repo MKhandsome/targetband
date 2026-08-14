@@ -24,6 +24,13 @@ export default function ScoreLoggerPage() {
     speaking: 6.0
   })
 
+  const [activeSkills, setActiveSkills] = useState({
+    listening: true,
+    reading: true,
+    writing: true,
+    speaking: true
+  })
+
   const [listeningRaw, setListeningRaw] = useState<number | ''>('')
   const [readingRaw, setReadingRaw] = useState<number | ''>('')
   const [notes, setNotes] = useState('')
@@ -32,19 +39,41 @@ export default function ScoreLoggerPage() {
     setScores(prev => ({ ...prev, [skill]: value }))
   }
 
-  const overallBand = calculateOverallBand(scores)
+  const toggleSkill = (skill: keyof SkillScores) => {
+    setActiveSkills(prev => ({ ...prev, [skill]: !prev[skill] }))
+  }
+
+  const activeCount = Object.values(activeSkills).filter(Boolean).length
+  
+  let overallBand = 0
+  if (activeCount === 4) {
+    overallBand = calculateOverallBand(scores)
+  } else if (activeCount > 0) {
+    // Partial average
+    let sum = 0
+    if (activeSkills.listening) sum += scores.listening
+    if (activeSkills.reading) sum += scores.reading
+    if (activeSkills.writing) sum += scores.writing
+    if (activeSkills.speaking) sum += scores.speaking
+    overallBand = sum / activeCount
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
+    if (activeCount === 0) {
+      toast.error("You must include at least one skill score.")
+      return
+    }
+
     const formData = {
       test_date: testDate,
       test_type: testType,
-      listening_score: scores.listening,
-      reading_score: scores.reading,
-      writing_score: scores.writing,
-      speaking_score: scores.speaking,
-      overall_score: overallBand,
+      listening_score: activeSkills.listening ? scores.listening : undefined,
+      reading_score: activeSkills.reading ? scores.reading : undefined,
+      writing_score: activeSkills.writing ? scores.writing : undefined,
+      speaking_score: activeSkills.speaking ? scores.speaking : undefined,
+      overall_score: activeCount > 0 ? overallBand : undefined,
       listening_raw: listeningRaw === '' ? undefined : Number(listeningRaw),
       reading_raw: readingRaw === '' ? undefined : Number(readingRaw),
       notes: notes.trim() === '' ? undefined : notes.trim(),
@@ -108,10 +137,24 @@ export default function ScoreLoggerPage() {
               Band Scores
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <NumericStepperBadge label="Listening" value={scores.listening} onChange={(v) => handleScoreChange('listening', v)} />
-              <NumericStepperBadge label="Reading" value={scores.reading} onChange={(v) => handleScoreChange('reading', v)} />
-              <NumericStepperBadge label="Writing" value={scores.writing} onChange={(v) => handleScoreChange('writing', v)} />
-              <NumericStepperBadge label="Speaking" value={scores.speaking} onChange={(v) => handleScoreChange('speaking', v)} />
+              {(['listening', 'reading', 'writing', 'speaking'] as const).map((skill) => (
+                <div key={skill} className={`relative transition-opacity ${!activeSkills[skill] ? 'opacity-50 grayscale' : ''}`}>
+                  <label className="absolute -top-3 -right-3 z-10 flex items-center gap-1.5 cursor-pointer bg-card border border-border px-2 py-1 rounded-full shadow-md hover:bg-muted/50 transition-colors">
+                    <input 
+                      type="checkbox" 
+                      checked={activeSkills[skill]} 
+                      onChange={() => toggleSkill(skill)}
+                      className="accent-primary cursor-pointer w-3.5 h-3.5"
+                    />
+                    <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">Include</span>
+                  </label>
+                  <NumericStepperBadge 
+                    label={skill} 
+                    value={scores[skill]} 
+                    onChange={(v) => handleScoreChange(skill, v)} 
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -168,7 +211,7 @@ export default function ScoreLoggerPage() {
             </div>
             <div className="flex items-center justify-center h-16 min-w-[4ch] rounded-xl border border-primary/30 bg-primary/10 px-4 ring-1 ring-primary/40 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
               <span className="text-3xl font-mono font-bold tabular-nums text-primary">
-                {overallBand.toFixed(1)}
+                {activeCount > 0 ? overallBand.toFixed(1) : '-'}
               </span>
             </div>
           </div>

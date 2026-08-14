@@ -3,28 +3,25 @@
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
-import { createClient } from "@/lib/supabase/client"
 import Link from "next/link"
+import { signUpWithEmail, signInWithGoogle } from "@/app/actions/auth"
 
 export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const supabase = createClient()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
     
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
+    const formData = new FormData(e.currentTarget)
+    const result = await signUpWithEmail(formData)
     
     setIsLoading(false)
     
-    if (error) {
-      toast.error(error.message)
+    if (result?.error) {
+      toast.error(result.error)
     } else {
       toast.success("Account created! Check your email for the confirmation link.")
     }
@@ -32,15 +29,10 @@ export default function SignUpPage() {
 
   const handleGoogleAuth = async () => {
     setIsLoading(true)
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/dashboard`
-      }
-    })
+    const result = await signInWithGoogle()
     
-    if (error) {
-      toast.error(error.message)
+    if (result?.error) {
+      toast.error(result.error)
       setIsLoading(false)
     }
   }
@@ -63,6 +55,7 @@ export default function SignUpPage() {
             <label className="text-sm font-medium text-foreground">Email</label>
             <input 
               type="email" 
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="flex h-11 w-full rounded-lg border border-white/10 bg-[#0C0C0C] px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all shadow-sm" 
@@ -75,6 +68,7 @@ export default function SignUpPage() {
             <label className="text-sm font-medium text-foreground">Password</label>
             <input 
               type="password" 
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="flex h-11 w-full rounded-lg border border-white/10 bg-[#0C0C0C] px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all shadow-sm" 

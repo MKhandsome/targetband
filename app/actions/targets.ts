@@ -42,14 +42,21 @@ export async function upsertTargetGoalAction(formData: any) {
       is_active: true
     }
 
-    // Upsert target goal. user_id is the primary/unique key so onConflict works natively
-    const { error: upsertError } = await supabase
+    // Archive previous active goals
+    await supabase
       .from('user_goals')
-      .upsert(payload, { onConflict: 'user_id' })
+      .update({ is_active: false })
+      .eq('user_id', user.id)
+      .eq('is_active', true)
 
-    if (upsertError) {
-      console.error("Upsert error:", upsertError)
-      return { error: `Failed to save target goal: ${upsertError.message || 'Unknown error'}` }
+    // Insert the new target goal
+    const { error: insertError } = await supabase
+      .from('user_goals')
+      .insert([payload])
+
+    if (insertError) {
+      console.error("Insert error:", insertError)
+      return { error: `Failed to save target goal: ${insertError.message || 'Unknown error'}` }
     }
 
     revalidatePath('/dashboard')

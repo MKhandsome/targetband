@@ -5,7 +5,6 @@
 
 @layer base {
   :root {
-    /* Light Mode Variables */
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
     
@@ -35,30 +34,24 @@
   }
 
   .dark {
-    /* Canvas — Deep Obsidian Black (#0C0C0C) */
     --background: 0 0% 5%;
     --foreground: 0 0% 98%;
 
-    /* Cards & Surfaces — Dark Charcoal Slate (#171717) */
     --card: 0 0% 9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
 
-    /* Borders & Inputs — hairline 1px (#262626) */
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 142.1 70.6% 45.3%;
 
-    /* Primary Accent — Neon Emerald (#10B981) for target progress, score matches & success */
     --primary: 142.1 70.6% 45.3%;
     --primary-foreground: 0 0% 5%;
 
-    /* Secondary / Action Accent — Electric Violet (#8B5CF6) for transactional CTAs */
     --accent: 263.4 70% 50.4%;
     --accent-foreground: 0 0% 98%;
 
-    /* Secondary, Muted & Destructive States */
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
@@ -103,5 +96,36 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased transition-colors duration-300;
+  }
+}
+
+@layer components {
+  .btn-primary, 
+  a.bg-primary, 
+  button.bg-primary {
+    @apply !transition-all !duration-200 !ease-out hover:!-translate-y-0.5 hover:!scale-[1.02] hover:!shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:!brightness-110 active:!scale-[0.98] active:!translate-y-0;
+  }
+  
+  .btn-accent, 
+  a.bg-accent, 
+  button.bg-accent {
+    @apply !transition-all !duration-200 !ease-out hover:!-translate-y-0.5 hover:!scale-[1.02] hover:!shadow-[0_0_25px_rgba(139,92,246,0.45)] hover:!brightness-110 active:!scale-[0.98] active:!translate-y-0;
+  }
+
+  .btn-ghost, 
+  .btn-outline,
+  a.border.border-white\/10,
+  button.border.border-white\/10 {
+    @apply !transition-all !duration-200 !ease-out hover:!border-white/30 hover:!bg-white/[0.07] active:!scale-[0.98] active:!translate-y-0;
+  }
+
+  a:hover svg.lucide-arrow-right,
+  button:hover svg.lucide-arrow-right {
+    transform: translateX(4px) !important;
+  }
+  
+  a svg.lucide-arrow-right,
+  button svg.lucide-arrow-right {
+    transition: transform 0.2s ease-out !important;
   }
 }

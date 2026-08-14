@@ -1,53 +1,41 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
-import { createClient } from "@/lib/supabase/client"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { useSearchParams } from "next/navigation"
+import { loginWithEmail, signInWithGoogle } from "@/app/actions/auth"
 
 function LoginContent() {
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const supabase = createClient()
-  const router = useRouter()
   const searchParams = useSearchParams()
 
   const unauthorized = searchParams.get('error') === 'unauthorized'
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
     
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    const formData = new FormData(e.currentTarget)
+    const result = await loginWithEmail(formData)
     
     setIsLoading(false)
     
-    if (error) {
-      toast.error(error.message)
-    } else {
-      toast.success("Successfully signed in!")
-      router.push('/dashboard')
+    if (result?.error) {
+      toast.error(result.error)
     }
+    // Note: on success, loginWithEmail redirects server-side
   }
 
   const handleGoogleAuth = async () => {
     setIsLoading(true)
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/dashboard`
-      }
-    })
+    const result = await signInWithGoogle()
     
-    if (error) {
-      toast.error(error.message)
+    if (result?.error) {
+      toast.error(result.error)
       setIsLoading(false)
     }
   }
@@ -78,6 +66,7 @@ function LoginContent() {
             <label className="text-sm font-medium text-foreground">Email</label>
             <input 
               type="email" 
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="flex h-11 w-full rounded-lg border border-white/10 bg-[#0C0C0C] px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:border-transparent transition-all shadow-sm" 
@@ -93,6 +82,7 @@ function LoginContent() {
             </div>
             <input 
               type="password" 
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="flex h-11 w-full rounded-lg border border-white/10 bg-[#0C0C0C] px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:border-transparent transition-all shadow-sm" 

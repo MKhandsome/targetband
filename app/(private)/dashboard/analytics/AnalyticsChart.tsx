@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import {
   LineChart,
   Line,
@@ -19,6 +20,7 @@ interface ScoreData {
   reading_score: number
   writing_score: number
   speaking_score: number
+  overall_score?: number
 }
 
 interface GoalData {
@@ -26,6 +28,7 @@ interface GoalData {
   target_reading: number
   target_writing: number
   target_speaking: number
+  target_overall?: number
 }
 
 interface AnalyticsChartProps {
@@ -38,19 +41,68 @@ const COLORS = {
   reading: '#F59E0B',   // amber
   writing: '#8B5CF6',   // violet
   speaking: '#EC4899',  // pink
+  overall: '#10B981',   // emerald (primary)
 }
 
+type FilterOption = "all" | "overall"
+
 export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
+  const [activeFilter, setActiveFilter] = useState<FilterOption>("all")
+
   if (data.length === 0) return null
 
-  // Ensure data is sorted by date ascending for the chart
-  const sortedData = [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime())
+  // Ensure data is sorted by date ascending for the chart and compute overall if missing
+  const sortedData = [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime()).map(d => {
+    // Official IELTS rounding: average to nearest 0.5
+    const avg = (Number(d.listening_score) + Number(d.reading_score) + Number(d.writing_score) + Number(d.speaking_score)) / 4
+    const fractionalPart = avg % 1
+    let rounded = Math.floor(avg)
+    if (fractionalPart >= 0.25 && fractionalPart < 0.75) rounded += 0.5
+    else if (fractionalPart >= 0.75) rounded += 1
+    
+    return {
+      ...d,
+      overall_score: d.overall_score || rounded
+    }
+  })
+
+  // Compute a default target overall if missing
+  let targetOverall = goal?.target_overall
+  if (goal && !targetOverall) {
+    const avg = (Number(goal.target_listening) + Number(goal.target_reading) + Number(goal.target_writing) + Number(goal.target_speaking)) / 4
+    const fractionalPart = avg % 1
+    let rounded = Math.floor(avg)
+    if (fractionalPart >= 0.25 && fractionalPart < 0.75) rounded += 0.5
+    else if (fractionalPart >= 0.75) rounded += 1
+    targetOverall = rounded
+  }
+
+  const showAll = activeFilter === "all"
 
   return (
     <div className="rounded-2xl border border-white/10 bg-card p-5 md:p-8 shadow-sm">
-      <div className="mb-6">
-        <h3 className="text-lg font-bold text-foreground">Skill Performance Trends</h3>
-        <p className="text-sm text-muted-foreground mt-1">Track your 4 core competencies over time.</p>
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-lg font-bold text-foreground">Skill Performance Trends</h3>
+          <p className="text-sm text-muted-foreground mt-1">Track your competencies over time.</p>
+        </div>
+        
+        {/* Interactive Filter Button Bar */}
+        <div className="flex flex-wrap gap-2">
+          {(["all", "overall"] as const).map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
+                activeFilter === filter 
+                  ? "bg-primary/20 text-primary border border-primary/50 shadow-[0_0_10px_rgba(16,185,129,0.2)]"
+                  : "bg-white/5 text-muted-foreground border border-white/10 hover:bg-white/10 hover:text-foreground"
+              }`}
+            >
+              {filter === "all" ? "All Skills" : "Overall Band"}
+            </button>
+          ))}
+        </div>
       </div>
       
       <div className="h-[400px] w-full mt-4">
@@ -80,57 +132,81 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
               labelStyle={{ color: '#a3a3a3', marginBottom: '8px', borderBottom: '1px solid #ffffff10', paddingBottom: '4px' }}
               labelFormatter={(val) => format(parseISO(val as string), 'MMM d, yyyy')}
             />
-            <Legend 
-              wrapperStyle={{ paddingTop: '20px' }}
-              iconType="circle"
-            />
+            {showAll && (
+              <Legend wrapperStyle={{ paddingTop: '20px' }} iconType="circle" />
+            )}
             
             {/* Target Reference Lines if Goal Exists */}
             {goal && (
               <>
-                <ReferenceLine y={goal.target_listening} stroke={COLORS.listening} strokeDasharray="3 3" strokeOpacity={0.3} />
-                <ReferenceLine y={goal.target_reading} stroke={COLORS.reading} strokeDasharray="3 3" strokeOpacity={0.3} />
-                <ReferenceLine y={goal.target_writing} stroke={COLORS.writing} strokeDasharray="3 3" strokeOpacity={0.3} />
-                <ReferenceLine y={goal.target_speaking} stroke={COLORS.speaking} strokeDasharray="3 3" strokeOpacity={0.3} />
+                {showAll && <ReferenceLine y={goal.target_listening} stroke={COLORS.listening} strokeDasharray="3 3" strokeOpacity={0.4} />}
+                {showAll && <ReferenceLine y={goal.target_reading} stroke={COLORS.reading} strokeDasharray="3 3" strokeOpacity={0.4} />}
+                {showAll && <ReferenceLine y={goal.target_writing} stroke={COLORS.writing} strokeDasharray="3 3" strokeOpacity={0.4} />}
+                {showAll && <ReferenceLine y={goal.target_speaking} stroke={COLORS.speaking} strokeDasharray="3 3" strokeOpacity={0.4} />}
+                {activeFilter === 'overall' && targetOverall && <ReferenceLine y={targetOverall} stroke={COLORS.overall} strokeDasharray="3 3" strokeOpacity={0.5} label={{ position: 'top', value: 'Overall Target', fill: COLORS.overall, fontSize: 12, fontWeight: 500 }} />}
               </>
             )}
 
-            <Line 
-              name="Listening"
-              type="monotone" 
-              dataKey="listening_score" 
-              stroke={COLORS.listening} 
-              strokeWidth={2.5}
-              dot={{ fill: COLORS.listening, r: 3, strokeWidth: 0 }}
-              activeDot={{ r: 5, fill: COLORS.listening, stroke: '#fff', strokeWidth: 2 }}
-            />
-            <Line 
-              name="Reading"
-              type="monotone" 
-              dataKey="reading_score" 
-              stroke={COLORS.reading} 
-              strokeWidth={2.5}
-              dot={{ fill: COLORS.reading, r: 3, strokeWidth: 0 }}
-              activeDot={{ r: 5, fill: COLORS.reading, stroke: '#fff', strokeWidth: 2 }}
-            />
-            <Line 
-              name="Writing"
-              type="monotone" 
-              dataKey="writing_score" 
-              stroke={COLORS.writing} 
-              strokeWidth={2.5}
-              dot={{ fill: COLORS.writing, r: 3, strokeWidth: 0 }}
-              activeDot={{ r: 5, fill: COLORS.writing, stroke: '#fff', strokeWidth: 2 }}
-            />
-            <Line 
-              name="Speaking"
-              type="monotone" 
-              dataKey="speaking_score" 
-              stroke={COLORS.speaking} 
-              strokeWidth={2.5}
-              dot={{ fill: COLORS.speaking, r: 3, strokeWidth: 0 }}
-              activeDot={{ r: 5, fill: COLORS.speaking, stroke: '#fff', strokeWidth: 2 }}
-            />
+            {showAll && (
+              <Line 
+                name="Listening"
+                type="monotone" 
+                dataKey="listening_score" 
+                stroke={COLORS.listening} 
+                strokeWidth={2.5}
+                dot={{ fill: COLORS.listening, r: 3, strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: COLORS.listening, stroke: '#fff', strokeWidth: 2 }}
+              />
+            )}
+            
+            {showAll && (
+              <Line 
+                name="Reading"
+                type="monotone" 
+                dataKey="reading_score" 
+                stroke={COLORS.reading} 
+                strokeWidth={2.5}
+                dot={{ fill: COLORS.reading, r: 3, strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: COLORS.reading, stroke: '#fff', strokeWidth: 2 }}
+              />
+            )}
+
+            {showAll && (
+              <Line 
+                name="Writing"
+                type="monotone" 
+                dataKey="writing_score" 
+                stroke={COLORS.writing} 
+                strokeWidth={2.5}
+                dot={{ fill: COLORS.writing, r: 3, strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: COLORS.writing, stroke: '#fff', strokeWidth: 2 }}
+              />
+            )}
+
+            {showAll && (
+              <Line 
+                name="Speaking"
+                type="monotone" 
+                dataKey="speaking_score" 
+                stroke={COLORS.speaking} 
+                strokeWidth={2.5}
+                dot={{ fill: COLORS.speaking, r: 3, strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: COLORS.speaking, stroke: '#fff', strokeWidth: 2 }}
+              />
+            )}
+
+            {activeFilter === 'overall' && (
+              <Line 
+                name="Overall Band"
+                type="monotone" 
+                dataKey="overall_score" 
+                stroke={COLORS.overall} 
+                strokeWidth={4}
+                dot={{ fill: COLORS.overall, r: 5, strokeWidth: 0 }}
+                activeDot={{ r: 7, fill: COLORS.overall, stroke: '#fff', strokeWidth: 2 }}
+                style={{ filter: `drop-shadow(0 0 10px ${COLORS.overall}60)` }}
+              />
+            )}
           </LineChart>
         </ResponsiveContainer>
       </div>

@@ -4,11 +4,40 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ScoreHistoryTable } from './ScoreHistoryTable'
 
+import { Suspense } from 'react'
+import DashboardLoading from '../loading'
+
 export const metadata = {
   title: 'Test History | TargetBand',
 }
 
-export default async function HistoryPage() {
+export default function HistoryPage() {
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto p-4 md:p-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Test History</h1>
+          <p className="text-muted-foreground mt-2">
+            Review your past mock tests and analyze your reflection notes.
+          </p>
+        </div>
+        <Link 
+          href="/dashboard/log"
+          prefetch={true}
+          className="inline-flex h-10 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-bold text-accent-foreground shadow-md transition-all hover:bg-accent/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        >
+          Log New Score
+        </Link>
+      </div>
+
+      <Suspense fallback={<DashboardLoading />}>
+        <HistoryData />
+      </Suspense>
+    </div>
+  )
+}
+
+async function HistoryData() {
   const cookieStore = await cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -37,22 +66,7 @@ export default async function HistoryPage() {
   const hasScores = scores && scores.length > 0
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Test History</h1>
-          <p className="text-muted-foreground mt-2">
-            Review your past mock tests and analyze your reflection notes.
-          </p>
-        </div>
-        <Link 
-          href="/dashboard/log"
-          className="inline-flex h-10 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-bold text-accent-foreground shadow-md transition-all hover:bg-accent/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          Log New Score
-        </Link>
-      </div>
-
+    <>
       {hasScores ? (
         <ScoreHistoryTable scores={scores} />
       ) : (
@@ -66,12 +80,13 @@ export default async function HistoryPage() {
           </p>
           <Link 
             href="/dashboard/log"
+            prefetch={true}
             className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-8 py-2 text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition-all hover:bg-accent/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             Log Your First Score
           </Link>
         </div>
       )}
-    </div>
+    </>
   )
 }

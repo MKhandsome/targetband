@@ -59,7 +59,8 @@ export function GoalProgressCard({ goal, averages }: GoalProgressCardProps) {
           Define your target IELTS band to start tracking your progress and see what skills need improvement.
         </p>
         <Link 
-          href="/dashboard/goals" 
+          href="/dashboard/targets" 
+          prefetch={true}
           className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-bold text-accent-foreground transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           Create Goal
