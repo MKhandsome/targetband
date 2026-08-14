@@ -1,20 +1,24 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+  <!-- Note: You can eventually replace this image link with your own custom branded banner -->
+  <img width="800" alt="The Target Band Banner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
 </div>
 
-# Run and deploy your AI Studio app
+# The Target Band 🎯
 
-This contains everything you need to run your app locally.
+> A data-driven progress tracking platform designed to help students optimize their IELTS preparation through analytics, systemized habits, and targeted feedback. 
 
-View your app in AI Studio: https://ai.studio/apps/6838a878-f877-4b28-9681-bc5bc5962cc2
+Traditional language learning often lacks the rapid, data-driven feedback loops used in engineering. **The Target Band** bridges that gap. Instead of throwing more curriculum at students, it provides a frictionless, aesthetic dashboard to visualize study patterns, debug learning habits, and hit target scores efficiently.
 
-## Run Locally
+## ✨ Features
+* **Progress Analytics:** Visual representations of daily study data and streaks.
+* **Targeted Insights:** Powered by the Gemini API to analyze and optimize learning paths.
+* **Frictionless UI/UX:** Built with a focus on clean, high-contrast design so users actually want to log their data.
 
-**Prerequisites:**  Node.js
+## 🚀 Getting Started
 
+To run this project locally, ensure you have **Node.js** installed on your machine.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 1. Clone & Install Dependencies
+Run the following command in your terminal to install all required packages:
+```bash
+npm install
