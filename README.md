@@ -1,6 +1,5 @@
 <div align="center">
-  <!-- Note: You can eventually replace this image link with your own custom branded banner -->
-  <img width="800" alt="The Target Band Banner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+  
 </div>
 
 # The Target Band 🎯
