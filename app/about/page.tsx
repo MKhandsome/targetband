@@ -18,7 +18,7 @@ export default function AboutPage() {
       <div className="prose prose-invert max-w-none prose-p:leading-relaxed prose-headings:tracking-tight prose-a:text-primary">
         <h2>Our Mission</h2>
         <p>
-          At TargetBand, we believe that preparing for the IELTS exam shouldn't involve guesswork. Our mission is to provide students with precise, reliable, and easy-to-use tools that demystify the IELTS scoring system. Whether you are aiming for a Band 6 for university admission or a Band 8 for immigration, we're here to help you track, calculate, and achieve your goals.
+          At TargetBand, we believe that preparing for the IELTS exam shouldn&apos;t involve guesswork. Our mission is to provide students with precise, reliable, and easy-to-use tools that demystify the IELTS scoring system. Whether you are aiming for a Band 6 for university admission or a Band 8 for immigration, we&apos;re here to help you track, calculate, and achieve your goals.
         </p>
 
         <h2>How We Calculate Band Scores</h2>

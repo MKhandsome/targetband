@@ -50,6 +50,7 @@ export default function TargetManagementPage({
         return
       }
 
+      toast.dismiss()
       toast.success("Target goal saved successfully!")
       router.push('/dashboard')
     })

@@ -18,13 +18,17 @@ export default function Navbar() {
 
   // Avoid hydration mismatch by waiting until mounted
   useEffect(() => {
-    setMounted(true)
+    const timer = setTimeout(() => setMounted(true), 0)
+    return () => clearTimeout(timer)
   }, [])
 
   // Close mobile menu when route changes
   useEffect(() => {
-    setIsMobileMenuOpen(false)
-    setIsToolsOpen(false)
+    const timer = setTimeout(() => {
+      setIsMobileMenuOpen(false)
+      setIsToolsOpen(false)
+    }, 0)
+    return () => clearTimeout(timer)
   }, [pathname])
 
   // Close dropdown on click outside

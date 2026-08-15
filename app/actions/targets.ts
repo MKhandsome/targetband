@@ -39,29 +39,25 @@ export async function upsertTargetGoalAction(formData: any) {
       target_writing: Number(formData.target_writing),
       target_speaking: Number(formData.target_speaking),
       target_date: formData.target_date || null,
-      is_active: true
+      is_active: true,
+      updated_at: new Date().toISOString()
     }
 
-    // Archive previous active goals
-    await supabase
+    // Insert or update the target goal
+    const { data, error: insertError } = await supabase
       .from('user_goals')
-      .update({ is_active: false })
-      .eq('user_id', user.id)
-      .eq('is_active', true)
-
-    // Insert the new target goal
-    const { error: insertError } = await supabase
-      .from('user_goals')
-      .insert([payload])
+      .upsert(payload, { onConflict: 'user_id' })
+      .select()
+      .single()
 
     if (insertError) {
-      console.error("Insert error:", insertError)
+      console.error("Upsert error:", insertError)
       return { error: `Failed to save target goal: ${insertError.message || 'Unknown error'}` }
     }
 
     revalidatePath('/dashboard')
     revalidatePath('/dashboard/targets')
-    return { success: true }
+    return { success: true, data }
 
   } catch (error: any) {
     console.error("Server Action Error:", error)

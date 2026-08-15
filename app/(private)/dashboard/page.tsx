@@ -115,13 +115,18 @@ async function DashboardData() {
   let averages = null
   if (scores.length > 0) {
     const recentScores = scores.slice(-5) // get the last 5 tests
-    const count = recentScores.length
+    const calcAvg = (skillKey: string) => {
+      const validScores = recentScores.filter(s => s[skillKey] !== null)
+      if (validScores.length === 0) return 0
+      return validScores.reduce((sum, s) => sum + Number(s[skillKey]), 0) / validScores.length
+    }
+
     averages = {
-      overall_score: recentScores.reduce((sum, s) => sum + Number(s.overall_score), 0) / count,
-      listening_score: recentScores.reduce((sum, s) => sum + Number(s.listening_score), 0) / count,
-      reading_score: recentScores.reduce((sum, s) => sum + Number(s.reading_score), 0) / count,
-      writing_score: recentScores.reduce((sum, s) => sum + Number(s.writing_score), 0) / count,
-      speaking_score: recentScores.reduce((sum, s) => sum + Number(s.speaking_score), 0) / count,
+      overall_score: calcAvg('overall_score'),
+      listening_score: calcAvg('listening_score'),
+      reading_score: calcAvg('reading_score'),
+      writing_score: calcAvg('writing_score'),
+      speaking_score: calcAvg('speaking_score'),
     }
   }
 
@@ -148,7 +153,7 @@ async function DashboardData() {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-3">No test data yet</h2>
           <p className="text-muted-foreground max-w-md mx-auto mb-8">
-            You haven't logged any practice test scores yet. Your charts and averages will populate automatically once you start practicing!
+            You haven&apos;t logged any practice test scores yet. Your charts and averages will populate automatically once you start practicing!
           </p>
           <Link 
             href="/dashboard/log"

@@ -13,14 +13,15 @@ import {
   Legend
 } from 'recharts'
 import { format, parseISO } from 'date-fns'
+import { roundToIeltsBand } from '@/lib/ielts/overallScoreCalculator'
 
 interface ScoreData {
   test_date: string
-  listening_score: number
-  reading_score: number
-  writing_score: number
-  speaking_score: number
-  overall_score?: number
+  listening_score: number | null
+  reading_score: number | null
+  writing_score: number | null
+  speaking_score: number | null
+  overall_score?: number | null
 }
 
 interface GoalData {
@@ -53,16 +54,14 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
   // Ensure data is sorted by date ascending for the chart and compute overall if missing
   const sortedData = [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime()).map(d => {
-    // Official IELTS rounding: average to nearest 0.5
-    const avg = (Number(d.listening_score) + Number(d.reading_score) + Number(d.writing_score) + Number(d.speaking_score)) / 4
-    const fractionalPart = avg % 1
-    let rounded = Math.floor(avg)
-    if (fractionalPart >= 0.25 && fractionalPart < 0.75) rounded += 0.5
-    else if (fractionalPart >= 0.75) rounded += 1
-    
+    const present = [d.listening_score, d.reading_score, d.writing_score, d.speaking_score]
+      .filter((v): v is number => v !== null && v !== undefined);
+
     return {
       ...d,
-      overall_score: d.overall_score || rounded
+      overall_score: d.overall_score ?? (present.length > 0
+        ? roundToIeltsBand(present.reduce((a, b) => a + b, 0) / present.length)
+        : null),
     }
   })
 
@@ -149,6 +148,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {showAll && (
               <Line 
+                connectNulls={true}
                 name="Listening"
                 type="monotone" 
                 dataKey="listening_score" 
@@ -161,6 +161,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
             
             {showAll && (
               <Line 
+                connectNulls={true}
                 name="Reading"
                 type="monotone" 
                 dataKey="reading_score" 
@@ -173,6 +174,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {showAll && (
               <Line 
+                connectNulls={true}
                 name="Writing"
                 type="monotone" 
                 dataKey="writing_score" 
@@ -185,6 +187,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {showAll && (
               <Line 
+                connectNulls={true}
                 name="Speaking"
                 type="monotone" 
                 dataKey="speaking_score" 
@@ -197,6 +200,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {activeFilter === 'overall' && (
               <Line 
+                connectNulls={true}
                 name="Overall Band"
                 type="monotone" 
                 dataKey="overall_score" 

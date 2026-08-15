@@ -58,6 +58,8 @@ export async function createScoreEntry(formData: any) {
 
     // 5. Revalidate and Return
     revalidatePath('/dashboard')
+    revalidatePath('/dashboard/history')
+    revalidatePath('/dashboard/analytics')
     return { success: true }
 
   } catch (error: any) {

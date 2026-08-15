@@ -29,7 +29,7 @@ export default function NotFound() {
             Page Not Found
           </h2>
           <p className="text-white/60 text-base md:text-lg">
-            The route you're looking for doesn't exist or has been moved.
+            The route you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
         </div>
 

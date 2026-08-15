@@ -44,6 +44,7 @@ export async function deleteScoreAction(scoreId: string) {
 
     revalidatePath('/dashboard')
     revalidatePath('/dashboard/history')
+    revalidatePath('/dashboard/analytics')
     return { success: true }
 
   } catch (error: any) {

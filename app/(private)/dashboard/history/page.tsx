@@ -76,7 +76,7 @@ async function HistoryData() {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-3">No test history found</h2>
           <p className="text-muted-foreground max-w-md mx-auto mb-8">
-            You haven't logged any practice scores yet. Your entire testing history and reflection notes will appear here.
+            You haven&apos;t logged any practice scores yet. Your entire testing history and reflection notes will appear here.
           </p>
           <Link 
             href="/dashboard/log"

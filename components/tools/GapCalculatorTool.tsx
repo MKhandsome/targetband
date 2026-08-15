@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { NumericStepperBadge } from '@/components/shared/NumericStepperBadge'
 import { calculateRequiredScore, GapCalculatorInput } from '@/lib/ielts/gapCalculator'
 import Link from 'next/link'
@@ -13,18 +13,7 @@ export function GapCalculatorTool() {
   const [targetOverall, setTargetOverall] = useState(7.0)
   const [knownScores, setKnownScores] = useState<[number, number, number]>([6.5, 6.5, 6.0])
 
-  const [requiredScore, setRequiredScore] = useState<number | null>(null)
-  const [isAchievable, setIsAchievable] = useState<boolean>(true)
-
-  useEffect(() => {
-    const input: GapCalculatorInput = {
-      knownScores,
-      targetOverall
-    }
-    const result = calculateRequiredScore(input)
-    setRequiredScore(result.requiredScore)
-    setIsAchievable(result.isAchievable)
-  }, [knownScores, targetOverall])
+  const { requiredScore, isAchievable } = React.useMemo(() => calculateRequiredScore({ knownScores, targetOverall }), [knownScores, targetOverall])
 
   const updateKnownScore = (index: number, value: number) => {
     const newScores = [...knownScores] as [number, number, number]
@@ -85,7 +74,7 @@ export function GapCalculatorTool() {
                  <AlertCircle className="h-8 w-8 text-destructive mb-3" />
                  <h4 className="font-bold text-destructive">Mathematically Out of Reach</h4>
                  <p className="text-sm text-destructive/80 mt-1">
-                   Even a 9.0 in your 4th skill won't be enough to reach an overall {targetOverall.toFixed(1)}. You will need to improve your known scores.
+                   Even a 9.0 in your 4th skill won&apos;t be enough to reach an overall {targetOverall.toFixed(1)}. You will need to improve your known scores.
                  </p>
                </div>
             )}

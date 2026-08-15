@@ -14,7 +14,7 @@ export default function TermsPage() {
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-foreground">1. Acceptance of Terms</h2>
           <p className="text-muted-foreground leading-relaxed">
-            By accessing or using TargetBand ("we," "us," or "our"), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our service.
+            By accessing or using TargetBand (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our service.
           </p>
         </section>
 
@@ -28,7 +28,7 @@ export default function TermsPage() {
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-foreground">3. Accuracy of Calculations</h2>
           <p className="text-muted-foreground leading-relaxed">
-            While we strive for maximum accuracy using official scoring rubrics, TargetBand's calculations are approximations. Real test boundaries may vary slightly based on test version difficulty. We cannot guarantee the exact score you will achieve on an official test.
+            While we strive for maximum accuracy using official scoring rubrics, TargetBand&apos;s calculations are approximations. Real test boundaries may vary slightly based on test version difficulty. We cannot guarantee the exact score you will achieve on an official test.
           </p>
         </section>
 

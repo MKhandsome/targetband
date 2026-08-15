@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { createScoreEntry } from './actions'
-import { calculateOverallBand, SkillScores } from '@/lib/ielts/overallScoreCalculator'
+import { calculateOverallBand, SkillScores, roundToIeltsBand } from '@/lib/ielts/overallScoreCalculator'
 import { NumericStepperBadge } from '@/components/shared/NumericStepperBadge'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
@@ -49,13 +49,10 @@ export default function ScoreLoggerPage() {
   if (activeCount === 4) {
     overallBand = calculateOverallBand(scores)
   } else if (activeCount > 0) {
-    // Partial average
-    let sum = 0
-    if (activeSkills.listening) sum += scores.listening
-    if (activeSkills.reading) sum += scores.reading
-    if (activeSkills.writing) sum += scores.writing
-    if (activeSkills.speaking) sum += scores.speaking
-    overallBand = sum / activeCount
+    const sum = (Object.keys(activeSkills) as (keyof SkillScores)[])
+      .filter((s) => activeSkills[s])
+      .reduce((acc, s) => acc + scores[s], 0);
+    overallBand = roundToIeltsBand(sum / activeCount);
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -137,24 +134,32 @@ export default function ScoreLoggerPage() {
               Band Scores
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {(['listening', 'reading', 'writing', 'speaking'] as const).map((skill) => (
-                <div key={skill} className={`relative transition-opacity ${!activeSkills[skill] ? 'opacity-50 grayscale' : ''}`}>
-                  <label className="absolute -top-3 -right-3 z-10 flex items-center gap-1.5 cursor-pointer bg-card border border-border px-2 py-1 rounded-full shadow-md hover:bg-muted/50 transition-colors">
-                    <input 
-                      type="checkbox" 
-                      checked={activeSkills[skill]} 
-                      onChange={() => toggleSkill(skill)}
-                      className="accent-primary cursor-pointer w-3.5 h-3.5"
-                    />
-                    <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">Include</span>
-                  </label>
-                  <NumericStepperBadge 
-                    label={skill} 
-                    value={scores[skill]} 
-                    onChange={(v) => handleScoreChange(skill, v)} 
-                  />
-                </div>
-              ))}
+              {(['listening', 'reading', 'writing', 'speaking'] as const).map((skill) => {
+                const isActive = activeSkills[skill];
+                return (
+                  <div key={skill} className={`bg-card/50 border rounded-xl p-4 transition-all ${isActive ? 'border-primary/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'border-white/10'}`}>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{skill}</span>
+                      <label className="relative inline-flex items-center cursor-pointer" aria-label={`Include ${skill}`}>
+                        <input 
+                          type="checkbox" 
+                          checked={isActive} 
+                          onChange={() => toggleSkill(skill)}
+                          className="sr-only peer"
+                        />
+                        <div className="w-9 h-5 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                      </label>
+                    </div>
+                    <div className={`transition-all flex justify-center ${!isActive ? 'opacity-40 pointer-events-none grayscale' : ''}`}>
+                      <NumericStepperBadge 
+                        srLabel={skill} 
+                        value={scores[skill]} 
+                        onChange={(v) => handleScoreChange(skill, v)} 
+                      />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
 

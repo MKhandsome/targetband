@@ -4,7 +4,8 @@ import React from 'react'
 import { Minus, Plus } from 'lucide-react'
 
 interface NumericStepperBadgeProps {
-  label: string
+  label?: string
+  srLabel?: string
   value: number
   step?: number
   min?: number
@@ -16,6 +17,7 @@ interface NumericStepperBadgeProps {
 
 export function NumericStepperBadge({
   label,
+  srLabel,
   value,
   step = 0.5,
   min = 0,
@@ -33,15 +35,19 @@ export function NumericStepperBadge({
     ? Math.round(value).toString()
     : value.toFixed(1)
 
+  const ariaLabelName = srLabel || label || 'Score'
+
   return (
     <div className="flex flex-col items-center gap-2">
-      <span className="text-xs font-medium tracking-wide uppercase text-muted-foreground">
-        {label}
-      </span>
+      {label && (
+        <span className="text-xs font-medium tracking-wide uppercase text-muted-foreground">
+          {label}
+        </span>
+      )}
       <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-card p-2 shadow-sm transition-all hover:border-white/20">
         <button
           type="button"
-          aria-label={`Decrease ${label}`}
+          aria-label={`Decrease ${ariaLabelName}`}
           onClick={() =>
             onChange(Math.max(min, Number((value - step).toFixed(2))))
           }
@@ -58,7 +64,7 @@ export function NumericStepperBadge({
 
         <button
           type="button"
-          aria-label={`Increase ${label}`}
+          aria-label={`Increase ${ariaLabelName}`}
           onClick={() =>
             onChange(Math.min(max, Number((value + step).toFixed(2))))
           }

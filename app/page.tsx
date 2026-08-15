@@ -5,6 +5,14 @@ import { ArrowRight, Play } from "lucide-react"
 import FeatureShowcase from "@/components/FeatureShowcase"
 
 export default function Home() {
+  const handleScrollToDemo = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const demoElement = document.getElementById('interactive-demo');
+    if (demoElement) {
+      demoElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] overflow-hidden pb-20 pt-16 md:pt-24 lg:pt-32">
       {/* Subtle background gradient grid effect */}
@@ -41,12 +49,12 @@ export default function Home() {
           >
             Get Started <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
-          <Link
-            href="#interactive-demo"
+          <button
+            onClick={handleScrollToDemo}
             className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-border bg-background hover:bg-muted hover:text-foreground h-11 px-8"
           >
             <Play className="mr-2 h-4 w-4" /> View Demo
-          </Link>
+          </button>
         </div>
       </div>
 

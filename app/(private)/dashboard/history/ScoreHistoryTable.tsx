@@ -60,10 +60,10 @@ export function ScoreHistoryTable({ scores }: { scores: any[] }) {
                   <td className="px-6 py-4 whitespace-nowrap capitalize">
                     {score.test_type.replace('_', ' ')}
                   </td>
-                  <td className="px-4 py-4 text-center font-mono">{Number(score.listening_score).toFixed(1)}</td>
-                  <td className="px-4 py-4 text-center font-mono">{Number(score.reading_score).toFixed(1)}</td>
-                  <td className="px-4 py-4 text-center font-mono">{Number(score.writing_score).toFixed(1)}</td>
-                  <td className="px-4 py-4 text-center font-mono">{Number(score.speaking_score).toFixed(1)}</td>
+                  <td className="px-4 py-4 text-center font-mono">{score.listening_score !== null ? Number(score.listening_score).toFixed(1) : '-'}</td>
+                  <td className="px-4 py-4 text-center font-mono">{score.reading_score !== null ? Number(score.reading_score).toFixed(1) : '-'}</td>
+                  <td className="px-4 py-4 text-center font-mono">{score.writing_score !== null ? Number(score.writing_score).toFixed(1) : '-'}</td>
+                  <td className="px-4 py-4 text-center font-mono">{score.speaking_score !== null ? Number(score.speaking_score).toFixed(1) : '-'}</td>
                   <td className="px-6 py-4 text-center font-mono font-bold text-primary">
                     {Number(score.overall_score).toFixed(1)}
                   </td>

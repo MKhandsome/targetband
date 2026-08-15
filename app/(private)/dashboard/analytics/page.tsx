@@ -73,11 +73,17 @@ async function AnalyticsData() {
     const recentScores = scores.slice(0, 5) // Use up to 5 most recent for summary
     const count = recentScores.length
 
+    const calcAvg = (skillKey: string) => {
+      const validScores = recentScores.filter(s => s[skillKey] !== null)
+      if (validScores.length === 0) return 0
+      return validScores.reduce((acc, s) => acc + Number(s[skillKey]), 0) / validScores.length
+    }
+
     const avgs = {
-      Listening: recentScores.reduce((acc, s) => acc + Number(s.listening_score), 0) / count,
-      Reading: recentScores.reduce((acc, s) => acc + Number(s.reading_score), 0) / count,
-      Writing: recentScores.reduce((acc, s) => acc + Number(s.writing_score), 0) / count,
-      Speaking: recentScores.reduce((acc, s) => acc + Number(s.speaking_score), 0) / count,
+      Listening: calcAvg('listening_score'),
+      Reading: calcAvg('reading_score'),
+      Writing: calcAvg('writing_score'),
+      Speaking: calcAvg('speaking_score'),
     }
 
     // Find highest performing skill

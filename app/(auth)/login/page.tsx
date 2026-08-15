@@ -126,7 +126,7 @@ function LoginContent() {
         </button>
 
         <p className="text-center text-sm text-muted-foreground mt-8">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link href="/signup" className="text-accent hover:underline font-medium transition-colors">
             Sign up
           </Link>
