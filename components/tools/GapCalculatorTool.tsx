@@ -36,8 +36,8 @@ export function GapCalculatorTool() {
       <div className="bg-card border border-border/50 rounded-2xl p-6 md:p-10 shadow-lg space-y-10">
         
         {/* Target Overall */}
-        <div className="flex flex-col items-center bg-[#111] p-6 rounded-xl border border-white/5">
-          <h2 className="text-lg font-semibold mb-6 text-center">Your Target Overall Band</h2>
+        <div className="flex flex-col items-center bg-background p-6 rounded-xl border border-border">
+          <h2 className="text-lg font-semibold mb-6 text-center text-foreground">Your Target Overall Band</h2>
           <NumericStepperBadge 
             label="Target Overall" 
             value={targetOverall} 
@@ -48,7 +48,7 @@ export function GapCalculatorTool() {
 
         {/* Known Scores */}
         <div>
-          <h2 className="text-lg font-semibold mb-6 text-center">Your 3 Known Skill Scores</h2>
+          <h2 className="text-lg font-semibold mb-6 text-center text-foreground">Your 3 Known Skill Scores</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-xl mx-auto">
             <NumericStepperBadge label="Skill 1" value={knownScores[0]} onChange={(v) => updateKnownScore(0, v)} />
             <NumericStepperBadge label="Skill 2" value={knownScores[1]} onChange={(v) => updateKnownScore(1, v)} />

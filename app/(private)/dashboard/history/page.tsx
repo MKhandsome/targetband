@@ -70,8 +70,8 @@ async function HistoryData() {
       {hasScores ? (
         <ScoreHistoryTable scores={scores} />
       ) : (
-        <div className="mt-8 rounded-2xl border border-dashed border-white/20 bg-white/5 p-16 text-center flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-muted-foreground mb-6">
+        <div className="mt-8 rounded-2xl border border-dashed border-border bg-card p-16 text-center flex flex-col items-center">
+          <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-3">No test history found</h2>

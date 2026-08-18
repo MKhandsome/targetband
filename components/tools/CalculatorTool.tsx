@@ -32,7 +32,7 @@ export function CalculatorTool() {
   else if (overallBand < rawAverage) roundingDirection = "rounded DOWN"
 
   const renderSkillStepper = (skillLabel: string, skillKey: keyof SkillScores) => (
-    <div className="bg-[#171717] border border-white/10 rounded-xl p-4 flex items-center justify-between">
+    <div className="bg-muted/40 border border-border text-foreground rounded-xl p-4 flex items-center justify-between">
       <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
         {skillLabel}
       </span>
@@ -40,7 +40,7 @@ export function CalculatorTool() {
         <button 
           onClick={() => handleScoreChange(skillKey, -0.5)}
           disabled={scores[skillKey] <= 0}
-          className="rounded-full h-8 w-8 flex items-center justify-center border border-white/10 hover:bg-white/5 text-muted-foreground hover:text-white transition disabled:opacity-50 disabled:pointer-events-none"
+          className="rounded-full h-8 w-8 flex items-center justify-center border border-border hover:bg-muted text-muted-foreground hover:text-foreground transition disabled:opacity-50 disabled:pointer-events-none"
         >
           −
         </button>
@@ -50,7 +50,7 @@ export function CalculatorTool() {
         <button 
           onClick={() => handleScoreChange(skillKey, 0.5)}
           disabled={scores[skillKey] >= 9}
-          className="rounded-full h-8 w-8 flex items-center justify-center border border-white/10 hover:bg-white/5 text-muted-foreground hover:text-white transition disabled:opacity-50 disabled:pointer-events-none"
+          className="rounded-full h-8 w-8 flex items-center justify-center border border-border hover:bg-muted text-muted-foreground hover:text-foreground transition disabled:opacity-50 disabled:pointer-events-none"
         >
           +
         </button>
@@ -67,7 +67,7 @@ export function CalculatorTool() {
         </p>
       </div>
 
-      <div className="bg-[#0C0C0C] border border-white/10 rounded-2xl p-6 md:p-8 shadow-lg relative overflow-hidden flex flex-col gap-4">
+      <div className="bg-card text-card-foreground border border-border shadow-sm rounded-2xl p-6 sm:p-8 relative overflow-hidden flex flex-col gap-4">
         
         {/* 2x2 Skill Inputs Grid (Top Section) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -78,22 +78,22 @@ export function CalculatorTool() {
         </div>
 
         {/* Overall Band Result Display (Middle Card) */}
-        <div className="bg-[#171717]/80 border border-primary/20 rounded-2xl p-8 flex flex-col items-center justify-center text-center mt-2 shadow-[inset_0_0_20px_rgba(16,185,129,0.05)]">
-          <span className="text-xs font-semibold tracking-wider text-primary uppercase mb-2">
+        <div className="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6 flex flex-col items-center justify-center text-center mt-2 shadow-[inset_0_0_20px_rgba(16,185,129,0.05)]">
+          <span className="text-xs font-semibold tracking-wider text-emerald-500 uppercase mb-2">
             Overall Band Score
           </span>
-          <span className="font-mono text-7xl font-black text-primary tracking-tight" style={{ textShadow: "0 0 25px rgba(16,185,129,0.3)" }}>
+          <span className="font-mono text-7xl font-black text-emerald-500 tracking-tight" style={{ textShadow: "0 0 25px rgba(16,185,129,0.3)" }}>
             {overallBand.toFixed(1)}
           </span>
           
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-muted-foreground mt-4 font-mono">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary border border-border text-xs text-muted-foreground mt-4 font-mono">
             <Info size={12} className="text-muted-foreground/70" />
             <span>Exact Average: {rawAverage.toFixed(3)} ({roundingDirection})</span>
           </div>
         </div>
         
         {/* Footer Rule Note */}
-        <p className="text-xs text-center text-muted-foreground/70 mt-2">
+        <p className="text-xs text-center text-muted-foreground mt-2">
           Scores ending in .25 or .75 are rounded up to the next half or whole band respectively.
         </p>
 

@@ -53,7 +53,7 @@ export function ScoreHistoryTable({ scores }: { scores: any[] }) {
 
             return (
               <React.Fragment key={score.id}>
-                <tr className="hover:bg-white/5 transition-colors">
+                <tr className="hover:bg-muted/50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
                     {format(parseISO(score.test_date), 'MMM d, yyyy')}
                   </td>
@@ -88,7 +88,7 @@ export function ScoreHistoryTable({ scores }: { scores: any[] }) {
                   </td>
                 </tr>
                 {isExpanded && hasNotes && (
-                  <tr className="bg-white/[0.02]">
+                  <tr className="bg-muted/20">
                     <td colSpan={8} className="px-6 py-4 text-sm text-muted-foreground border-t border-white/5">
                       <div className="flex gap-2">
                         <span className="font-semibold text-foreground">Reflection:</span>

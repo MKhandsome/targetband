@@ -62,15 +62,15 @@ export default function AboutPage() {
           </p>
           
           <ul className="space-y-4">
-            <li className="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+            <li className="flex items-start gap-4 bg-muted/30 p-4 rounded-xl border border-border">
               <span className="text-emerald-400 font-black text-xl leading-none mt-1">.25</span>
               <span className="text-muted-foreground">If the average ends in <strong>.25</strong>, it is rounded up to the next half band <span className="text-foreground">(e.g., 6.25 → 6.5)</span>.</span>
             </li>
-            <li className="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+            <li className="flex items-start gap-4 bg-muted/30 p-4 rounded-xl border border-border">
               <span className="text-emerald-400 font-black text-xl leading-none mt-1">.75</span>
               <span className="text-muted-foreground">If the average ends in <strong>.75</strong>, it is rounded up to the next whole band <span className="text-foreground">(e.g., 6.75 → 7.0)</span>.</span>
             </li>
-            <li className="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+            <li className="flex items-start gap-4 bg-muted/30 p-4 rounded-xl border border-border">
               <span className="text-emerald-400 font-black text-xl leading-none mt-1">&lt;</span>
               <span className="text-muted-foreground">If the average ends in a fraction below .25 or .75, it is rounded down <span className="text-foreground">(e.g., 6.125 → 6.0)</span>.</span>
             </li>

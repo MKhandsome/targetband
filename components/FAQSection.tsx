@@ -52,7 +52,7 @@ export function FAQSection() {
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-center justify-between p-6 text-left focus-visible:outline-none focus-visible:bg-white/5 transition-colors"
+                  className="w-full flex items-center justify-between p-6 text-left focus-visible:outline-none focus-visible:bg-muted transition-colors"
                   aria-expanded={isOpen}
                 >
                   <span className="font-semibold text-lg pr-8">{faq.question}</span>

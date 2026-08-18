@@ -85,7 +85,7 @@ export default function Navbar() {
                 <Link 
                   href="/tools"
                   prefetch={true}
-                  className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
+                  className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors"
                   onClick={(e) => {
                     // Allow navigation but toggle dropdown for mobile users who tap
                     if (window.innerWidth < 768) {
@@ -144,13 +144,13 @@ export default function Navbar() {
                 )}
               </div>
 
-              <Link href="/dashboard" prefetch={true} className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors">
+              <Link href="/dashboard" prefetch={true} className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors">
                 Dashboard
               </Link>
-              <Link href="/about" prefetch={true} className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors">
+              <Link href="/about" prefetch={true} className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors">
                 About Us
               </Link>
-              <Link href="/contact" prefetch={true} className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors">
+              <Link href="/contact" prefetch={true} className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors">
                 Contact
               </Link>
             </div>
@@ -195,7 +195,7 @@ export default function Navbar() {
               <div className="md:hidden flex items-center">
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/5 focus:outline-none"
+                  className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/10 focus:outline-none"
                 >
                   {isMobileMenuOpen ? (
                     <X className="h-6 w-6" />
@@ -219,13 +219,13 @@ export default function Navbar() {
                   Tools
                 </div>
                 <div className="space-y-1 pl-3">
-                  <Link href="/converter" prefetch={true} className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-white/5">
+                  <Link href="/converter" prefetch={true} className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-accent/10">
                     <Repeat className="h-4 w-4 text-blue-500" /> Score Converter
                   </Link>
-                  <Link href="/calculator" prefetch={true} className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-white/5">
+                  <Link href="/calculator" prefetch={true} className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-accent/10">
                     <Calculator className="h-4 w-4 text-primary" /> Band Calculator
                   </Link>
-                  <Link href="/gap-calculator" prefetch={true} className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-white/5">
+                  <Link href="/gap-calculator" prefetch={true} className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-accent/10">
                     <BarChart className="h-4 w-4 text-accent" /> Gap Calculator
                   </Link>
                 </div>
@@ -233,13 +233,13 @@ export default function Navbar() {
 
               <div className="h-px w-full bg-border/50 my-2"></div>
 
-              <Link href="/dashboard" prefetch={true} className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-white/5">
+              <Link href="/dashboard" prefetch={true} className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-accent/10">
                 Dashboard
               </Link>
-              <Link href="/about" prefetch={true} className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-white/5">
+              <Link href="/about" prefetch={true} className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-accent/10">
                 About Us
               </Link>
-              <Link href="/contact" prefetch={true} className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-white/5">
+              <Link href="/contact" prefetch={true} className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-accent/10">
                 Contact
               </Link>
 

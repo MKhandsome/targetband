@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 
 export interface DayActivity {
   date: string // ISO date string YYYY-MM-DD
@@ -8,7 +8,7 @@ export interface DayActivity {
 }
 
 const INTENSITY_CLASSES = [
-  'bg-white/5 border border-white/5', // 0 entries
+  'bg-muted/50 border border-border', // 0 entries
   'bg-primary/25 border border-primary/30', // 1 entry
   'bg-primary/50 border border-primary/60', // 2 entries
   'bg-primary/80 border border-primary/90', // 3 entries
@@ -20,10 +20,10 @@ function intensityFor(count: number) {
 }
 
 export function ActivityHeatmap({ days }: { days: DayActivity[] }) {
-  const weeks = chunkIntoWeeks(days)
+  const weeks = useMemo(() => chunkIntoWeeks(days), [days])
 
   return (
-    <div className="rounded-xl border border-white/10 bg-card p-5 shadow-sm">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />

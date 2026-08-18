@@ -9,8 +9,8 @@ export function GuestGoalCompareWidget({ currentOverall }: { currentOverall: num
   const percentage = Math.min(100, Math.max(0, (currentOverall / target) * 100))
 
   return (
-    <div className="rounded-xl border border-white/10 bg-[#171717] p-6 shadow-sm mt-8">
-      <h3 className="text-lg font-bold mb-6 text-center md:text-left">Goal Comparison (Guest)</h3>
+    <div className="rounded-xl border border-border bg-muted/30 p-5 shadow-sm mt-8">
+      <h3 className="text-lg font-bold mb-6 text-center md:text-left text-foreground">Goal Comparison (Guest)</h3>
       <div className="flex flex-col md:flex-row items-center gap-8">
         <NumericStepperBadge 
           label="Target Band"
@@ -26,7 +26,7 @@ export function GuestGoalCompareWidget({ currentOverall }: { currentOverall: num
              <span className="text-muted-foreground">Current: <span className="text-foreground font-mono font-bold text-base ml-1">{currentOverall.toFixed(1)}</span></span>
              <span className="text-muted-foreground">Target: <span className="text-accent font-mono font-bold text-base ml-1">{target.toFixed(1)}</span></span>
            </div>
-           <div className="h-5 w-full bg-[#0C0C0C] rounded-full overflow-hidden border border-white/5 relative">
+           <div className="h-5 w-full bg-secondary rounded-full overflow-hidden border border-border relative">
              <div 
                className={`h-full transition-all duration-500 ease-out ${diff >= 0 ? 'bg-primary' : 'bg-accent/80'}`} 
                style={{ width: `${percentage}%` }}

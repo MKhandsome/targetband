@@ -44,14 +44,14 @@ export function NumericStepperBadge({
           {label}
         </span>
       )}
-      <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-card p-2 shadow-sm transition-all hover:border-white/20">
+      <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-2 shadow-sm transition-all hover:border-border/80">
         <button
           type="button"
           aria-label={`Decrease ${ariaLabelName}`}
           onClick={() =>
             onChange(Math.max(min, Number((value - step).toFixed(2))))
           }
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-muted-foreground transition-all hover:bg-white/10 hover:text-foreground active:scale-95"
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
         >
           <Minus size={14} />
         </button>
@@ -68,7 +68,7 @@ export function NumericStepperBadge({
           onClick={() =>
             onChange(Math.min(max, Number((value + step).toFixed(2))))
           }
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-muted-foreground transition-all hover:bg-white/10 hover:text-foreground active:scale-95"
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
         >
           <Plus size={14} />
         </button>

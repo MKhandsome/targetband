@@ -1,5 +1,7 @@
 'use client'
 
+import { useMemo } from 'react'
+
 import {
   LineChart,
   Line,
@@ -23,6 +25,11 @@ interface ScoreTrendChartProps {
 }
 
 export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
+  // Ensure data is sorted by date ascending for the chart
+  const sortedData = useMemo(() => {
+    return [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime())
+  }, [data])
+
   if (data.length === 0) {
     return (
       <div className="flex h-64 w-full flex-col items-center justify-center rounded-2xl border border-white/10 bg-card/50 text-center text-muted-foreground p-6 shadow-sm">
@@ -33,8 +40,6 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
     )
   }
 
-  // Ensure data is sorted by date ascending for the chart
-  const sortedData = [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime())
 
   return (
     <div className="rounded-2xl border border-white/10 bg-card p-5 shadow-sm">
@@ -73,9 +78,9 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
             <Tooltip 
               animationDuration={150}
               animationEasing="ease-out"
-              contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
+              contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
               itemStyle={{ color: '#10B981', fontWeight: 600 }}
-              labelStyle={{ color: '#a3a3a3', marginBottom: '4px' }}
+              labelStyle={{ color: 'var(--muted-foreground)', marginBottom: '4px' }}
               labelFormatter={(val) => format(parseISO(val as string), 'MMM d, yyyy')}
             />
             {targetScore && (
@@ -91,6 +96,7 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
               strokeWidth={3}
               dot={{ fill: '#10B981', r: 4, strokeWidth: 0 }}
               activeDot={{ r: 6, fill: '#10B981', stroke: '#ffffff', strokeWidth: 2 }}
+              connectNulls={true}
             />
           </LineChart>
         </ResponsiveContainer>

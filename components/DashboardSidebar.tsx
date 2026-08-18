@@ -52,9 +52,9 @@ export default function DashboardSidebar({ email }: { email: string }) {
   }
 
   return (
-    <aside className={`bg-[#171717] border-r border-white/10 transition-all duration-300 flex flex-col hidden md:flex relative ${collapsed ? "w-20" : "w-72"}`}>
+    <aside className={`bg-card border-r border-border transition-all duration-300 flex flex-col hidden md:flex relative ${collapsed ? "w-20" : "w-72"}`}>
       {/* Brand Header */}
-      <div className="h-16 flex flex-shrink-0 items-center justify-between px-4 border-b border-white/10">
+      <div className="h-16 flex flex-shrink-0 items-center justify-between px-4 border-b border-border">
         {!collapsed && (
           <Link href="/" prefetch={true} className="font-bold tracking-tighter text-lg text-foreground hover:opacity-80 transition-opacity">
             Target<span className="text-primary">Band</span>
@@ -69,7 +69,7 @@ export default function DashboardSidebar({ email }: { email: string }) {
         {/* Collapse button */}
         <button 
           onClick={() => setCollapsed(!collapsed)} 
-          className="p-1.5 rounded-md hover:bg-white/5 text-muted-foreground absolute -right-3 top-5 bg-[#0C0C0C] border border-white/10 z-10 hidden md:flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+          className="p-1.5 rounded-md hover:bg-accent/10 text-muted-foreground absolute -right-3 top-5 bg-background border border-border z-10 hidden md:flex items-center justify-center transition-all hover:scale-110 active:scale-95"
           aria-label="Toggle Sidebar"
         >
           <ChevronLeft className={`h-3.5 w-3.5 transition-transform duration-300 ${collapsed ? "rotate-180" : ""}`} />
@@ -101,7 +101,7 @@ export default function DashboardSidebar({ email }: { email: string }) {
                   href={link.href}
                   prefetch={true}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
-                    isActive ? "bg-primary/10 text-primary font-medium shadow-[inset_2px_0_0_0_rgba(16,185,129,1)]" : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
+                    isActive ? "bg-primary/10 text-primary font-medium shadow-[inset_2px_0_0_0_rgba(16,185,129,1)]" : "text-muted-foreground hover:bg-accent/10 hover:text-foreground"
                   }`}
                   title={collapsed ? link.name : undefined}
                 >
@@ -114,7 +114,7 @@ export default function DashboardSidebar({ email }: { email: string }) {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-white/10 space-y-4 flex-shrink-0 bg-[#171717]">
+      <div className="p-4 border-t border-border space-y-4 flex-shrink-0 bg-card">
         {!collapsed && (
           <div className="px-2 overflow-hidden flex items-center gap-3 mb-2">
             <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold flex-shrink-0 border border-primary/30">

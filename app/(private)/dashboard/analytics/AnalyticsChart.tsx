@@ -95,7 +95,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
                 activeFilter === filter 
                   ? "bg-primary/20 text-primary border border-primary/50 shadow-[0_0_10px_rgba(16,185,129,0.2)]"
-                  : "bg-white/5 text-muted-foreground border border-white/10 hover:bg-white/10 hover:text-foreground"
+                  : "bg-secondary text-muted-foreground border border-border hover:bg-secondary/80 hover:text-foreground"
               }`}
             >
               {filter === "all" ? "All Skills" : "Overall Band"}

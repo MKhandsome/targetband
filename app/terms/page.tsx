@@ -24,7 +24,7 @@ export default function TermsPage() {
         </h1>
         
         <div className="flex items-center gap-2 text-sm font-medium text-zinc-400">
-          <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
+          <div className="flex items-center gap-1.5 bg-secondary border border-border px-3 py-1 rounded-full">
             <Calendar className="w-4 h-4 text-emerald-400" />
             Last updated: August 2026
           </div>

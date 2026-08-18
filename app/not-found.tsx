@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4 overflow-hidden relative">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 overflow-hidden relative">
       {/* Subtle Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
 
@@ -25,10 +25,10 @@ export default function NotFound() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
             Page Not Found
           </h2>
-          <p className="text-white/60 text-base md:text-lg">
+          <p className="text-muted-foreground text-base md:text-lg">
             The route you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
         </div>
@@ -36,14 +36,14 @@ export default function NotFound() {
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link 
             href="/dashboard"
-            className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-emerald-500 px-8 py-2 text-sm font-bold text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all hover:bg-emerald-400 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-8 py-2 text-sm font-bold text-primary-foreground shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all hover:bg-primary/90 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <LayoutDashboard className="w-4 h-4" />
             Return to Dashboard
           </Link>
           <Link 
             href="/"
-            className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white/5 border border-white/10 px-8 py-2 text-sm font-medium text-white transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-secondary border border-border px-8 py-2 text-sm font-medium text-secondary-foreground transition-all hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Home className="w-4 h-4" />
             Go Home

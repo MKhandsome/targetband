@@ -26,7 +26,7 @@ export function ConverterTool() {
         </p>
       </div>
 
-      <div className="bg-[#171717] border border-white/10 rounded-2xl p-6 md:p-10 shadow-lg space-y-8 relative overflow-hidden">
+      <div className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-lg space-y-8 relative overflow-hidden">
         
         {/* Test Type Selector (Top Section) */}
         <div className="space-y-3">
@@ -38,7 +38,7 @@ export function ConverterTool() {
               className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 testType === "listening" 
                   ? "bg-accent text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
-                  : "bg-transparent border border-white/10 text-muted-foreground hover:text-white hover:bg-white/5"
+                  : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
               onClick={() => setTestType("listening")}
             >
@@ -48,7 +48,7 @@ export function ConverterTool() {
               className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 testType === "reading_academic" 
                   ? "bg-accent text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
-                  : "bg-transparent border border-white/10 text-muted-foreground hover:text-white hover:bg-white/5"
+                  : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
               onClick={() => setTestType("reading_academic")}
             >
@@ -58,7 +58,7 @@ export function ConverterTool() {
               className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 testType === "reading_general" 
                   ? "bg-accent text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
-                  : "bg-transparent border border-white/10 text-muted-foreground hover:text-white hover:bg-white/5"
+                  : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
               onClick={() => setTestType("reading_general")}
             >
@@ -68,7 +68,7 @@ export function ConverterTool() {
         </div>
 
         {/* Interactive Correct Answers Slider (Middle Card) */}
-        <div className="bg-[#0C0C0C] border border-white/5 rounded-xl p-6 md:p-8 space-y-6 shadow-inner">
+        <div className="bg-muted/50 border border-border rounded-xl p-6 md:p-8 space-y-6 shadow-inner">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
               Correct Answers
@@ -86,7 +86,7 @@ export function ConverterTool() {
               step="1" 
               value={rawScore} 
               onChange={(e) => setRawScore(parseInt(e.target.value))}
-              className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
+              className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-emerald-500"
             />
             <div className="flex justify-between text-xs text-muted-foreground font-mono px-1">
               <span>0</span>

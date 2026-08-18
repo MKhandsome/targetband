@@ -42,7 +42,7 @@ function LoginContent() {
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#171717] rounded-2xl shadow-2xl border border-white/10 overflow-hidden flex flex-col p-8 relative">
+      <div className="w-full max-w-md bg-card rounded-2xl shadow-2xl border border-border overflow-hidden flex flex-col p-8 relative">
         {/* Decorative ambient light */}
         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
         
@@ -69,7 +69,7 @@ function LoginContent() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex h-11 w-full rounded-lg border border-white/10 bg-[#0C0C0C] px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:border-transparent transition-all shadow-sm" 
+              className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-transparent transition-all shadow-sm" 
               placeholder="name@example.com"
               required
             />
@@ -85,7 +85,7 @@ function LoginContent() {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="flex h-11 w-full rounded-lg border border-white/10 bg-[#0C0C0C] px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:border-transparent transition-all shadow-sm" 
+              className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-transparent transition-all shadow-sm" 
               required
             />
           </div>
@@ -102,10 +102,10 @@ function LoginContent() {
 
         <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-white/10" />
+            <span className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase font-medium">
-            <span className="bg-[#171717] px-3 text-muted-foreground">Or continue with</span>
+            <span className="bg-card px-3 text-muted-foreground">Or continue with</span>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ function LoginContent() {
           type="button" 
           onClick={handleGoogleAuth}
           disabled={isLoading}
-          className="inline-flex items-center justify-center rounded-lg text-sm font-semibold border border-white/10 bg-[#0C0C0C] hover:bg-white/5 h-11 px-4 w-full transition-all active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none shadow-sm"
+          className="inline-flex items-center justify-center rounded-lg text-sm font-semibold border border-border bg-secondary text-secondary-foreground hover:bg-secondary/80 h-11 px-4 w-full transition-all active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none shadow-sm"
         >
           {isLoading ? (
             <Loader2 className="h-4 w-4 animate-spin mr-2" />

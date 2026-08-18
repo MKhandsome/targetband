@@ -93,13 +93,13 @@ export default function TargetManagementPage({
                   required
                   value={targetDate}
                   onChange={(e) => setTargetDate(e.target.value)}
-                  className="w-full rounded-md border border-white/10 bg-[#0C0C0C] px-4 py-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all"
+                  className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-transparent transition-all"
                   style={{ colorScheme: 'dark' }}
                 />
               </div>
             </div>
 
-            <div className="space-y-6 p-6 rounded-xl bg-white/5 border border-white/5">
+            <div className="space-y-6 p-6 rounded-xl bg-card border border-border">
               <h3 className="text-sm font-medium text-muted-foreground mb-4">Individual Skill Targets</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>

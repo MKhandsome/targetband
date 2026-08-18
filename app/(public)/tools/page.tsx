@@ -60,18 +60,18 @@ export default function ToolsDirectoryPage() {
           <motion.div 
             variants={itemVariants}
             key={idx} 
-            className="group relative rounded-2xl border border-white/10 bg-[#171717] p-8 shadow-sm hover:shadow-lg hover:border-white/20 transition-all duration-300 flex flex-col"
+            className="group relative rounded-2xl border border-border bg-card text-card-foreground dark:bg-card/50 p-8 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col"
           >
-            <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+            <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
               {tool.icon}
             </div>
-            <h3 className="text-xl font-bold mb-3">{tool.title}</h3>
-            <p className="text-muted-foreground leading-relaxed flex-1 mb-8">
+            <h3 className="text-foreground font-semibold text-lg mb-3">{tool.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-8">
               {tool.description}
             </p>
             <Link
               href={tool.href}
-              className="inline-flex items-center text-sm font-semibold text-foreground group-hover:text-primary transition-colors mt-auto"
+              className="inline-flex items-center text-primary font-medium hover:underline mt-auto"
             >
               Open Tool <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               {/* Absolute pseudo-element to make the whole card clickable */}

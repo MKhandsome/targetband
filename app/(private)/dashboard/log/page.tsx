@@ -137,7 +137,7 @@ export default function ScoreLoggerPage() {
               {(['listening', 'reading', 'writing', 'speaking'] as const).map((skill) => {
                 const isActive = activeSkills[skill];
                 return (
-                  <div key={skill} className={`bg-card/50 border rounded-xl p-4 transition-all ${isActive ? 'border-primary/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'border-white/10'}`}>
+                  <div key={skill} className={`bg-card/50 border rounded-xl p-4 transition-all ${isActive ? 'border-primary/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'border-border'}`}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{skill}</span>
                       <label className="relative inline-flex items-center cursor-pointer" aria-label={`Include ${skill}`}>

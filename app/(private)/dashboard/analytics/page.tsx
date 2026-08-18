@@ -189,8 +189,8 @@ async function AnalyticsData() {
           <AnalyticsChart data={scores} goal={goal} />
         </>
       ) : (
-        <div className="mt-8 rounded-2xl border border-dashed border-white/20 bg-white/5 p-16 text-center flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-muted-foreground mb-6">
+        <div className="mt-8 rounded-2xl border border-dashed border-border bg-card p-16 text-center flex flex-col items-center">
+          <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-6">
             <LineChart className="w-10 h-10 opacity-50" />
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-line-chart"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
           </div>
