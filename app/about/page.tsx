@@ -1,4 +1,5 @@
 import { FAQSection } from '@/components/FAQSection'
+import { Target, Calculator, TrendingUp, ShieldCheck } from 'lucide-react'
 
 export const metadata = {
   title: "About Us | TargetBand",
@@ -7,47 +8,74 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-24 space-y-16">
-      <div className="space-y-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight">About TargetBand</h1>
-        <p className="text-xl text-muted-foreground">
-          Your ultimate companion for achieving your desired IELTS score.
+    <div className="container mx-auto max-w-5xl px-4 py-24 space-y-24">
+      {/* Hero Header */}
+      <div className="text-center space-y-6 max-w-3xl mx-auto">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tight">
+          Demystifying the <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-violet-500">
+            IELTS Scoring System
+          </span>
+        </h1>
+        <p className="text-xl text-muted-foreground leading-relaxed">
+          At TargetBand, we believe that preparing for the IELTS exam shouldn&apos;t involve guesswork. Our mission is to provide precise, reliable tools to help you track, calculate, and achieve your goals.
         </p>
       </div>
 
-      <div className="prose prose-invert max-w-none prose-p:leading-relaxed prose-headings:tracking-tight prose-a:text-primary">
-        <h2>Our Mission</h2>
-        <p>
-          At TargetBand, we believe that preparing for the IELTS exam shouldn&apos;t involve guesswork. Our mission is to provide students with precise, reliable, and easy-to-use tools that demystify the IELTS scoring system. Whether you are aiming for a Band 6 for university admission or a Band 8 for immigration, we&apos;re here to help you track, calculate, and achieve your goals.
-        </p>
+      {/* Value Cards Grid */}
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="bg-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-8 space-y-4 hover:border-emerald-500/30 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6">
+            <Target className="w-6 h-6" />
+          </div>
+          <h2 className="text-2xl font-bold text-foreground">Precision Tracking</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Stop guessing your progress. We created TargetBand because we saw students struggling to manually calculate their gaps across multiple spreadsheets. Everything is now built natively into a single, beautiful dashboard.
+          </p>
+        </div>
 
-        <h2>How We Calculate Band Scores</h2>
-        <p>
-          The IELTS overall band score is calculated by taking the average of the four component scores: Listening, Reading, Writing, and Speaking. The average is then rounded to the nearest half or whole band based on official IELTS methodology.
-        </p>
+        <div className="bg-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-8 space-y-4 hover:border-violet-500/30 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 mb-6">
+            <TrendingUp className="w-6 h-6" />
+          </div>
+          <h2 className="text-2xl font-bold text-foreground">Actionable Analytics</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Whether you are aiming for a Band 6 for university admission or a Band 8 for immigration, our analytics engine automatically identifies your weakest skills and visualizes exactly what you need to improve.
+          </p>
+        </div>
+      </div>
+
+      {/* Official Rounding Rules Glassmorphic Box */}
+      <div className="relative rounded-3xl overflow-hidden border border-emerald-500/30 bg-emerald-950/10 backdrop-blur-md p-8 md:p-12">
+        <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+          <Calculator className="w-64 h-64 text-emerald-500" />
+        </div>
         
-        <div className="bg-muted/30 border border-border/50 rounded-xl p-6 not-prose my-8">
-          <h3 className="font-semibold text-lg mb-4">Official Rounding Rules:</h3>
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex items-start gap-2">
-              <span className="text-primary font-bold mt-0.5">•</span>
-              <span>If the average ends in <strong>.25</strong>, it is rounded up to the next half band (e.g., 6.25 → 6.5).</span>
+        <div className="relative z-10 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold tracking-wide uppercase mb-6 border border-emerald-500/20">
+            <ShieldCheck className="w-4 h-4" />
+            Official Methodology
+          </div>
+          <h2 className="text-3xl font-bold text-foreground mb-4">How We Calculate Band Scores</h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            The IELTS overall band score is calculated by taking the exact average of the four component scores (Listening, Reading, Writing, and Speaking). The average is then rounded to the nearest half or whole band.
+          </p>
+          
+          <ul className="space-y-4">
+            <li className="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+              <span className="text-emerald-400 font-black text-xl leading-none mt-1">.25</span>
+              <span className="text-muted-foreground">If the average ends in <strong>.25</strong>, it is rounded up to the next half band <span className="text-foreground">(e.g., 6.25 → 6.5)</span>.</span>
             </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary font-bold mt-0.5">•</span>
-              <span>If the average ends in <strong>.75</strong>, it is rounded up to the next whole band (e.g., 6.75 → 7.0).</span>
+            <li className="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+              <span className="text-emerald-400 font-black text-xl leading-none mt-1">.75</span>
+              <span className="text-muted-foreground">If the average ends in <strong>.75</strong>, it is rounded up to the next whole band <span className="text-foreground">(e.g., 6.75 → 7.0)</span>.</span>
             </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary font-bold mt-0.5">•</span>
-              <span>If the average ends in a fraction below .25 or .75, it is rounded down (e.g., 6.125 → 6.0).</span>
+            <li className="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+              <span className="text-emerald-400 font-black text-xl leading-none mt-1">&lt;</span>
+              <span className="text-muted-foreground">If the average ends in a fraction below .25 or .75, it is rounded down <span className="text-foreground">(e.g., 6.125 → 6.0)</span>.</span>
             </li>
           </ul>
         </div>
-
-        <h2>Why TargetBand?</h2>
-        <p>
-          We created TargetBand because we saw students struggling to manually calculate their gaps and test histories across multiple spreadsheets. With TargetBand, everything from raw-score conversions to historical performance analytics is built natively into a single, beautiful dashboard.
-        </p>
       </div>
 
       <hr className="border-border/50" />

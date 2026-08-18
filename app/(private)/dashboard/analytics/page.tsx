@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function AnalyticsPage() {
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto p-4 md:p-8">
+    <div className="space-y-8 animate-fade-in-scale max-w-6xl mx-auto p-4 md:p-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Performance Analytics</h1>
         <p className="text-muted-foreground mt-2">

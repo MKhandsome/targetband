@@ -166,7 +166,7 @@ export default function FeatureShowcase() {
 
            {activeTab === "tracker" && (
              <div className="w-full h-full flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 z-10 pt-8">
-               <div className="h-64 w-full relative">
+               <div className="h-64 w-full relative min-w-0">
                  <ResponsiveContainer width="100%" height="100%">
                    <LineChart 
                      data={[

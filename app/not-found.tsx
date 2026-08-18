@@ -11,7 +11,7 @@ export default function NotFound() {
       {/* Subtle Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="text-center z-10 max-w-md w-full space-y-8 animate-in fade-in zoom-in duration-700">
+      <div className="text-center z-10 max-w-md w-full space-y-8 animate-fade-in-scale">
         
         {/* Large Styled Graphic Badge */}
         <div className="relative inline-block">

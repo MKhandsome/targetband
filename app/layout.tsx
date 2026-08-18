@@ -7,11 +7,12 @@ import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://targetband.com'),
   title: {
     template: '%s | TargetBand',
-    default: 'TargetBand | Master Your IELTS Band Score',
+    default: 'TargetBand - IELTS Band Calculator & Progress Tracker',
   },
-  description: 'Instant IELTS raw score converter, overall band calculator, gap analyzer, and progress tracker.',
+  description: 'Instant IELTS raw score converter, overall band calculator, gap analyzer, and progress tracker. Master your IELTS band score faster.',
   openGraph: {
     title: 'TargetBand | Master Your IELTS Band Score',
     description: 'Instant IELTS raw score converter, overall band calculator, gap analyzer, and progress tracker.',
@@ -52,7 +53,8 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${jetBrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col">
+      <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col overflow-x-hidden w-full">
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

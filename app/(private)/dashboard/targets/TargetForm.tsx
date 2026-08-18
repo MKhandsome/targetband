@@ -61,7 +61,7 @@ export default function TargetManagementPage({
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-4xl mx-auto">
+    <div className="space-y-8 animate-fade-in-scale max-w-4xl mx-auto">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Target Management</h1>
         <p className="text-muted-foreground mt-2">

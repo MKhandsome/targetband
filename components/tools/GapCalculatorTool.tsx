@@ -64,13 +64,13 @@ export function GapCalculatorTool() {
             </span>
             
             {isAchievable && requiredScore !== null ? (
-               <div className="flex items-center justify-center h-[96px] min-w-[6ch] rounded-2xl border border-primary/30 bg-primary/10 px-8 ring-1 ring-primary/40 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+               <div key={`success-${requiredScore}`} className="flex items-center justify-center h-[96px] min-w-[6ch] rounded-2xl border border-primary/30 bg-primary/10 px-8 ring-1 ring-primary/40 shadow-[0_0_20px_rgba(16,185,129,0.15)] animate-fade-in-scale">
                  <span className="text-5xl font-mono font-bold tabular-nums text-primary">
                    {requiredScore.toFixed(1)}
                  </span>
                </div>
             ) : (
-               <div className="flex flex-col items-center text-center p-6 bg-destructive/10 border border-destructive/20 rounded-xl max-w-md w-full mx-auto">
+               <div key="error" className="flex flex-col items-center text-center p-6 bg-destructive/10 border border-destructive/20 rounded-xl max-w-md w-full mx-auto animate-fade-in-scale">
                  <AlertCircle className="h-8 w-8 text-destructive mb-3" />
                  <h4 className="font-bold text-destructive">Mathematically Out of Reach</h4>
                  <p className="text-sm text-destructive/80 mt-1">

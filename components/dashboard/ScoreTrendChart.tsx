@@ -38,14 +38,20 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-card p-5 shadow-sm">
-      <div className="mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Overall Progress Trend
         </h3>
+        {targetScore && (
+          <div className="flex items-center gap-1.5 text-xs font-medium text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full">
+            <span className="w-2 h-0.5 bg-purple-500 rounded-full inline-block"></span>
+            Target: {targetScore}
+          </div>
+        )}
       </div>
-      <div className="h-64 w-full">
+      <div className="h-64 w-full min-w-0">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={sortedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <LineChart data={sortedData} margin={{ top: 16, right: 8, left: -20, bottom: 4 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#ffffff15" vertical={false} />
             <XAxis 
               dataKey="test_date" 
@@ -65,15 +71,20 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
               tickLine={false}
             />
             <Tooltip 
-              contentStyle={{ backgroundColor: '#171717', borderColor: '#ffffff20', borderRadius: '8px' }}
+              animationDuration={150}
+              animationEasing="ease-out"
+              contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
               itemStyle={{ color: '#10B981', fontWeight: 600 }}
               labelStyle={{ color: '#a3a3a3', marginBottom: '4px' }}
               labelFormatter={(val) => format(parseISO(val as string), 'MMM d, yyyy')}
             />
             {targetScore && (
-              <ReferenceLine y={targetScore} stroke="#8B5CF6" strokeDasharray="3 3" label={{ position: 'top', value: 'Target', fill: '#8B5CF6', fontSize: 12, fontWeight: 500 }} />
+              <ReferenceLine y={targetScore} stroke="#8B5CF6" strokeDasharray="3 3" />
             )}
             <Line 
+              isAnimationActive={true}
+              animationDuration={800}
+              animationEasing="ease-out"
               type="monotone" 
               dataKey="overall_score" 
               stroke="#10B981" 

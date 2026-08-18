@@ -90,7 +90,7 @@ export default function ScoreLoggerPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-scale">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Log Practice Score</h1>
         <p className="text-muted-foreground mt-2">

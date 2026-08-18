@@ -15,9 +15,15 @@ export default function Home() {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] overflow-hidden pb-20 pt-16 md:pt-24 lg:pt-32">
-      {/* Subtle background gradient grid effect */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-40 blur-[100px]"></div>
+      {/* Subtle background gradient grid effect with breathing ambient glow */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] flex items-center justify-center">
+        <div 
+          className="h-[350px] w-[500px] rounded-full bg-gradient-to-r from-emerald-500/20 to-violet-500/20 blur-[100px]"
+          style={{
+            animation: 'breathe 8s ease-in-out infinite',
+            willChange: 'transform, opacity'
+          }}
+        ></div>
       </div>
 
       <div className="container px-4 md:px-6 flex flex-col items-center text-center max-w-5xl mx-auto space-y-8">

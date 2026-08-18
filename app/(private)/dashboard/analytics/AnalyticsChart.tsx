@@ -104,7 +104,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
         </div>
       </div>
       
-      <div className="h-[400px] w-full mt-4">
+      <div className="h-[400px] w-full mt-4 min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={sortedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
@@ -126,7 +126,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
               tickLine={false}
             />
             <Tooltip 
-              contentStyle={{ backgroundColor: '#171717', borderColor: '#ffffff20', borderRadius: '8px' }}
+              animationDuration={150}
+              animationEasing="ease-out"
+              contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
               itemStyle={{ fontWeight: 500 }}
               labelStyle={{ color: '#a3a3a3', marginBottom: '8px', borderBottom: '1px solid #ffffff10', paddingBottom: '4px' }}
               labelFormatter={(val) => format(parseISO(val as string), 'MMM d, yyyy')}
@@ -148,6 +150,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {showAll && (
               <Line 
+                isAnimationActive={true}
+                animationDuration={800}
+                animationEasing="ease-out"
                 connectNulls={true}
                 name="Listening"
                 type="monotone" 
@@ -161,6 +166,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
             
             {showAll && (
               <Line 
+                isAnimationActive={true}
+                animationDuration={800}
+                animationEasing="ease-out"
                 connectNulls={true}
                 name="Reading"
                 type="monotone" 
@@ -174,6 +182,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {showAll && (
               <Line 
+                isAnimationActive={true}
+                animationDuration={800}
+                animationEasing="ease-out"
                 connectNulls={true}
                 name="Writing"
                 type="monotone" 
@@ -187,6 +198,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {showAll && (
               <Line 
+                isAnimationActive={true}
+                animationDuration={800}
+                animationEasing="ease-out"
                 connectNulls={true}
                 name="Speaking"
                 type="monotone" 
@@ -200,6 +214,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
 
             {activeFilter === 'overall' && (
               <Line 
+                isAnimationActive={true}
+                animationDuration={800}
+                animationEasing="ease-out"
                 connectNulls={true}
                 name="Overall Band"
                 type="monotone" 

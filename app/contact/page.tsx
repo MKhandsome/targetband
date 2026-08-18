@@ -23,7 +23,7 @@ export default function ContactPage() {
       <div className="space-y-4 text-center mb-16">
         <h1 className="text-4xl font-bold tracking-tight">Contact & Support</h1>
         <p className="text-lg text-muted-foreground">
-          Have a question, feature request, or need help with your account? We&apos;re here for you.
+          Have a question, feature request, or need help with your account? Fill out the form below or email us directly at <a href="mailto:support@targetband.com" className="text-primary hover:underline transition-colors">support@targetband.com</a>.
         </p>
       </div>
 

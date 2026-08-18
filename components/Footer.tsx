@@ -24,9 +24,9 @@ export default function Footer() {
               Master your IELTS score with our instant converter, calculator, and practice tracker.
             </p>
             <div className="flex space-x-4 pt-2">
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors"><Twitter className="h-5 w-5" /></Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors"><Github className="h-5 w-5" /></Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors"><Linkedin className="h-5 w-5" /></Link>
+              <a href="https://twitter.com/targetband" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors"><Twitter className="h-5 w-5" /></a>
+              <a href="https://github.com/targetband" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors"><Github className="h-5 w-5" /></a>
+              <a href="https://linkedin.com/company/targetband" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors"><Linkedin className="h-5 w-5" /></a>
             </div>
           </div>
 
@@ -47,6 +47,7 @@ export default function Footer() {
               <li><Link href="/#blog" className="hover:text-primary transition-colors">Blog</Link></li>
               <li><Link href="/#careers" className="hover:text-primary transition-colors">Careers</Link></li>
               <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
+              <li><a href="mailto:support@targetband.com" className="hover:text-primary transition-colors">Email Support</a></li>
             </ul>
           </div>
 
