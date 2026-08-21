@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { Toaster } from 'sonner'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://targetband.com'),
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     siteName: 'TargetBand',
     images: [
       {
-        url: '/og-image.jpg', // Placeholder for OG image
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'TargetBand Dark Mode Banner',
@@ -55,7 +56,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col overflow-x-hidden w-full">
-
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -67,6 +67,7 @@ export default function RootLayout({
           <Footer />
           <Toaster richColors position="top-center" />
           <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
