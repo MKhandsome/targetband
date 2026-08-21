@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Toaster } from 'sonner'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -66,6 +67,7 @@ export default function RootLayout({
           <Footer />
           <Toaster richColors position="top-center" />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
