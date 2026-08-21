@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { Toaster } from 'sonner'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://targetband.com'),
@@ -67,6 +68,7 @@ export default function RootLayout({
           <Footer />
           <Toaster richColors position="top-center" />
           <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
