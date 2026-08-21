@@ -100,7 +100,7 @@ export default function Navbar() {
                 {/* Glassmorphism Dropdown Menu */}
                 {isToolsOpen && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64">
-                    <div className="rounded-xl border border-border/50 bg-card/95 backdrop-blur-xl shadow-xl overflow-hidden p-2 flex flex-col gap-1 ring-1 ring-white/10 animate-in fade-in zoom-in-95 duration-200">
+                    <div className="rounded-xl border border-border/50 bg-card/95 backdrop-blur-xl shadow-xl overflow-hidden p-2 flex flex-col gap-1 ring-1 ring-border animate-in fade-in zoom-in-95 duration-200">
                       <Link 
                         href="/converter"
                         prefetch={true}

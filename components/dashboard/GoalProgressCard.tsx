@@ -37,7 +37,7 @@ function ProgressRow({ label, current, target }: { label: string, current: numbe
           {current.toFixed(1)} <span className="text-muted-foreground">/ {target.toFixed(1)}</span>
         </span>
       </div>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
         <div 
           className={`h-full transition-all duration-1000 ease-out rounded-full ${achieved ? 'bg-primary shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-primary/70'}`} 
           style={{ width: `${percentage}%` }}
@@ -50,7 +50,7 @@ function ProgressRow({ label, current, target }: { label: string, current: numbe
 export function GoalProgressCard({ goal, averages }: GoalProgressCardProps) {
   if (!goal) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-card p-6 shadow-sm flex flex-col justify-center items-center h-full min-h-[300px] text-center">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm flex flex-col justify-center items-center h-full min-h-[300px] text-center">
         <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-crosshair"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
         </div>
@@ -81,13 +81,13 @@ export function GoalProgressCard({ goal, averages }: GoalProgressCardProps) {
   const daysRemaining = goal.target_date ? Math.max(0, differenceInDays(parseISO(goal.target_date), new Date())) : null
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-card p-6 shadow-sm flex flex-col h-full">
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-sm flex flex-col h-full">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Current Progress
         </h3>
         {daysRemaining !== null && (
-          <div className="rounded-full bg-white/5 px-2.5 py-1 text-[11px] font-medium text-muted-foreground border border-white/10">
+          <div className="rounded-full bg-muted/30 px-2.5 py-1 text-[11px] font-medium text-muted-foreground border border-border">
             {daysRemaining} {daysRemaining === 1 ? 'day' : 'days'} left
           </div>
         )}

@@ -17,7 +17,7 @@ export default function NotFound() {
         <div className="relative inline-block">
           <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full" />
           <h1 
-            className="text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 tracking-tighter drop-shadow-[0_0_20px_rgba(16,185,129,0.3)] relative"
+            className="text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/50 tracking-tighter drop-shadow-[0_0_20px_rgba(16,185,129,0.3)] relative"
             style={{ fontFamily: "'JetBrains Mono', monospace" }}
           >
             404

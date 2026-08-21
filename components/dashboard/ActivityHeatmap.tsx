@@ -40,7 +40,7 @@ export function ActivityHeatmap({ days }: { days: DayActivity[] }) {
         </div>
       </div>
 
-      <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/10">
+      <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-border">
         {weeks.map((week, wi) => (
           <div key={wi} className="flex flex-col gap-1.5">
             {week.map((day) => (

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import {
   LineChart,
   Line,
@@ -50,20 +50,22 @@ type FilterOption = "all" | "overall"
 export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
   const [activeFilter, setActiveFilter] = useState<FilterOption>("all")
 
-  if (data.length === 0) return null
-
   // Ensure data is sorted by date ascending for the chart and compute overall if missing
-  const sortedData = [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime()).map(d => {
-    const present = [d.listening_score, d.reading_score, d.writing_score, d.speaking_score]
-      .filter((v): v is number => v !== null && v !== undefined);
+  const sortedData = useMemo(() => {
+    return [...data].sort((a, b) => new Date(a.test_date).getTime() - new Date(b.test_date).getTime()).map(d => {
+      const present = [d.listening_score, d.reading_score, d.writing_score, d.speaking_score]
+        .filter((v): v is number => v !== null && v !== undefined);
 
-    return {
-      ...d,
-      overall_score: d.overall_score ?? (present.length > 0
-        ? roundToIeltsBand(present.reduce((a, b) => a + b, 0) / present.length)
-        : null),
-    }
-  })
+      return {
+        ...d,
+        overall_score: d.overall_score ?? (present.length > 0
+          ? roundToIeltsBand(present.reduce((a, b) => a + b, 0) / present.length)
+          : null),
+      }
+    })
+  }, [data])
+
+  if (data.length === 0) return null
 
   // Compute a default target overall if missing
   let targetOverall = goal?.target_overall
@@ -79,7 +81,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
   const showAll = activeFilter === "all"
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-card p-5 md:p-8 shadow-sm">
+    <div className="rounded-2xl border border-border bg-card p-5 md:p-8 shadow-sm">
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-foreground">Skill Performance Trends</h3>
@@ -107,10 +109,10 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
       <div className="h-[400px] w-full mt-4 min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={sortedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
             <XAxis 
               dataKey="test_date" 
-              stroke="#ffffff40" 
+              stroke="hsl(var(--muted-foreground))" 
               fontSize={12}
               tickMargin={12}
               tickFormatter={(val) => format(parseISO(val), 'MMM d')}
@@ -119,7 +121,7 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
             <YAxis 
               domain={[0, 9]} 
               ticks={[0, 2, 4, 5, 6, 7, 8, 9]} 
-              stroke="#ffffff40" 
+              stroke="hsl(var(--muted-foreground))" 
               fontSize={12} 
               tickMargin={10}
               axisLine={false}
@@ -128,9 +130,9 @@ export function AnalyticsChart({ data, goal }: AnalyticsChartProps) {
             <Tooltip 
               animationDuration={150}
               animationEasing="ease-out"
-              contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
+              contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
               itemStyle={{ fontWeight: 500 }}
-              labelStyle={{ color: '#a3a3a3', marginBottom: '8px', borderBottom: '1px solid #ffffff10', paddingBottom: '4px' }}
+              labelStyle={{ color: 'hsl(var(--muted-foreground))', marginBottom: '8px', borderBottom: '1px solid hsl(var(--border))', paddingBottom: '4px' }}
               labelFormatter={(val) => format(parseISO(val as string), 'MMM d, yyyy')}
             />
             {showAll && (

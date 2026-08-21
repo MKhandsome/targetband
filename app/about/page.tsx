@@ -24,7 +24,7 @@ export default function AboutPage() {
 
       {/* Value Cards Grid */}
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="bg-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-8 space-y-4 hover:border-emerald-500/30 transition-colors">
+        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 space-y-4 hover:border-emerald-500/30 transition-colors">
           <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6">
             <Target className="w-6 h-6" />
           </div>
@@ -34,7 +34,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="bg-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-8 space-y-4 hover:border-violet-500/30 transition-colors">
+        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 space-y-4 hover:border-violet-500/30 transition-colors">
           <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 mb-6">
             <TrendingUp className="w-6 h-6" />
           </div>

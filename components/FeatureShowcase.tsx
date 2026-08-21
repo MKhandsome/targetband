@@ -168,36 +168,36 @@ export default function FeatureShowcase() {
              <div className="w-full h-full flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 z-10 pt-8">
                <div className="h-64 w-full relative min-w-0">
                  <ResponsiveContainer width="100%" height="100%">
-                   <LineChart 
-                     data={[
-                       { name: 'M1', score: 6.0 },
-                       { name: 'M2', score: 6.5 },
-                       { name: 'M3', score: 6.5 },
-                       { name: 'M4', score: 7.0 },
-                       { name: 'M5', score: 7.5 },
-                       { name: 'Now', score: 7.5 }
-                     ]}
-                     margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
-                   >
-                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                     <XAxis dataKey="name" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} />
-                     <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} domain={[5.0, 9.0]} tickCount={5} tickLine={false} axisLine={false} />
-                     <Tooltip 
-                       contentStyle={{ backgroundColor: '#171717', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
-                       itemStyle={{ color: '#10B981', fontWeight: 'bold' }}
-                     />
-                     <Line 
-                       type="monotone" 
-                       dataKey="score" 
-                       stroke="#10B981" 
-                       strokeWidth={4} 
-                       dot={{ r: 6, fill: "#10B981", strokeWidth: 2, stroke: "#000" }}
-                       activeDot={{ r: 8, fill: "#8B5CF6", stroke: "#000" }}
-                       isAnimationActive={true}
-                       animationDuration={1500}
-                       animationEasing="ease-in-out"
-                     />
-                   </LineChart>
+                    <LineChart 
+                      data={[
+                        { name: 'M1', score: 6.0 },
+                        { name: 'M2', score: 6.5 },
+                        { name: 'M3', score: 6.5 },
+                        { name: 'M4', score: 7.0 },
+                        { name: 'M5', score: 7.5 },
+                        { name: 'Now', score: 7.5 }
+                      ]}
+                      margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} domain={[5.0, 9.0]} tickCount={5} tickLine={false} axisLine={false} />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }}
+                        itemStyle={{ color: '#10B981', fontWeight: 'bold' }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="score" 
+                        stroke="#10B981" 
+                        strokeWidth={4} 
+                        dot={{ r: 6, fill: "#10B981", strokeWidth: 2, stroke: "hsl(var(--background))" }}
+                        activeDot={{ r: 8, fill: "#8B5CF6", stroke: "hsl(var(--background))" }}
+                        isAnimationActive={true}
+                        animationDuration={1500}
+                        animationEasing="ease-in-out"
+                      />
+                    </LineChart>
                  </ResponsiveContainer>
                </div>
              </div>

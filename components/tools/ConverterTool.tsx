@@ -37,7 +37,7 @@ export function ConverterTool() {
             <button 
               className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 testType === "listening" 
-                  ? "bg-accent text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
+                  ? "bg-accent text-accent-foreground shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
               onClick={() => setTestType("listening")}
@@ -47,7 +47,7 @@ export function ConverterTool() {
             <button 
               className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 testType === "reading_academic" 
-                  ? "bg-accent text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
+                  ? "bg-accent text-accent-foreground shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
               onClick={() => setTestType("reading_academic")}
@@ -57,7 +57,7 @@ export function ConverterTool() {
             <button 
               className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
                 testType === "reading_general" 
-                  ? "bg-accent text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
+                  ? "bg-accent text-accent-foreground shadow-[0_0_15px_rgba(139,92,246,0.4)]" 
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
               onClick={() => setTestType("reading_general")}

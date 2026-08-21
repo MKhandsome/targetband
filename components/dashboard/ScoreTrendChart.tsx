@@ -32,8 +32,8 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
 
   if (data.length === 0) {
     return (
-      <div className="flex h-64 w-full flex-col items-center justify-center rounded-2xl border border-white/10 bg-card/50 text-center text-muted-foreground p-6 shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trending-up mb-2 h-8 w-8 text-white/20"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      <div className="flex h-64 w-full flex-col items-center justify-center rounded-2xl border border-border bg-card/50 text-center text-muted-foreground p-6 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trending-up mb-2 h-8 w-8 text-muted-foreground/40"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
         <p className="font-medium text-foreground">No test data yet</p>
         <p className="mt-1 text-sm">Log your first practice score to see your trend over time.</p>
       </div>
@@ -42,7 +42,7 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
 
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-card p-5 shadow-sm">
+    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Overall Progress Trend
@@ -57,10 +57,10 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
       <div className="h-64 w-full min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={sortedData} margin={{ top: 16, right: 8, left: -20, bottom: 4 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff15" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
             <XAxis 
               dataKey="test_date" 
-              stroke="#ffffff40" 
+              stroke="hsl(var(--muted-foreground))" 
               fontSize={12}
               tickMargin={10}
               tickFormatter={(val) => format(parseISO(val), 'MMM d')}
@@ -69,7 +69,7 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
             <YAxis 
               domain={[0, 9]} 
               ticks={[0, 3, 4, 5, 6, 7, 8, 9]} 
-              stroke="#ffffff40" 
+              stroke="hsl(var(--muted-foreground))" 
               fontSize={12} 
               tickMargin={10}
               axisLine={false}
@@ -78,9 +78,9 @@ export function ScoreTrendChart({ data, targetScore }: ScoreTrendChartProps) {
             <Tooltip 
               animationDuration={150}
               animationEasing="ease-out"
-              contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
+              contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '0.75rem', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
               itemStyle={{ color: '#10B981', fontWeight: 600 }}
-              labelStyle={{ color: 'var(--muted-foreground)', marginBottom: '4px' }}
+              labelStyle={{ color: 'hsl(var(--muted-foreground))', marginBottom: '4px' }}
               labelFormatter={(val) => format(parseISO(val as string), 'MMM d, yyyy')}
             />
             {targetScore && (

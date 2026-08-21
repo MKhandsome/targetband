@@ -98,10 +98,10 @@ export default function ScoreLoggerPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-card border border-border/50 rounded-2xl shadow-lg overflow-hidden">
+      <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden">
         
         {/* Top Section: Date & Type */}
-        <div className="p-6 md:p-8 border-b border-border/50 bg-[#111] grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-6 md:p-8 border-b border-border bg-muted/30 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Test Date</label>
             <input 
@@ -209,7 +209,7 @@ export default function ScoreLoggerPage() {
         </div>
 
         {/* Bottom Section: Summary & Submit */}
-        <div className="p-6 md:p-8 border-t border-border/50 bg-[#111] flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="p-6 md:p-8 border-t border-border bg-muted/30 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="text-sm text-muted-foreground text-right">
               Calculated<br/>Overall Band

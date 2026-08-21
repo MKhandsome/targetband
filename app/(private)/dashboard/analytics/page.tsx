@@ -136,7 +136,7 @@ async function AnalyticsData() {
         <>
           {/* Executive Summaries Banner */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-white/10 bg-card p-6 shadow-sm flex items-start gap-5 relative overflow-hidden">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm flex items-start gap-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-5">
                 <BrainCircuit className="w-32 h-32" />
               </div>
@@ -157,7 +157,7 @@ async function AnalyticsData() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-card p-6 shadow-sm flex items-start gap-5 relative overflow-hidden">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm flex items-start gap-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-5">
                 <Target className="w-32 h-32" />
               </div>

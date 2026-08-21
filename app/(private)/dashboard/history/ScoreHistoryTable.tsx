@@ -6,7 +6,23 @@ import { deleteScoreAction } from '@/app/actions/scores'
 import { toast } from 'sonner'
 import { Trash2, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 
-export function ScoreHistoryTable({ scores }: { scores: any[] }) {
+export interface ScoreEntry {
+  id: string
+  test_date: string
+  test_type: string
+  listening_score: number | null
+  reading_score: number | null
+  writing_score: number | null
+  speaking_score: number | null
+  overall_score: number
+  notes?: string | null
+  user_id?: string
+  created_at?: string
+}
+
+export type ScoreHistoryItem = ScoreEntry
+
+export function ScoreHistoryTable({ scores }: { scores: ScoreEntry[] }) {
   const [isPending, startTransition] = useTransition()
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
@@ -31,9 +47,9 @@ export function ScoreHistoryTable({ scores }: { scores: any[] }) {
   }
 
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-white/10 bg-card shadow-sm">
+    <div className="w-full overflow-x-auto rounded-xl border border-border bg-card shadow-sm">
       <table className="w-full text-left text-sm text-foreground">
-        <thead className="bg-[#171717] border-b border-white/10 text-muted-foreground uppercase text-xs tracking-wider">
+        <thead className="bg-muted/40 border-b border-border text-muted-foreground uppercase text-xs tracking-wider">
           <tr>
             <th className="px-6 py-4 font-medium">Test Date</th>
             <th className="px-6 py-4 font-medium">Type</th>
@@ -45,7 +61,7 @@ export function ScoreHistoryTable({ scores }: { scores: any[] }) {
             <th className="px-6 py-4 font-medium text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/5 bg-transparent">
+        <tbody className="divide-y divide-border/50 bg-transparent">
           {scores.map((score) => {
             const isDeleting = isPending && deletingId === score.id
             const isExpanded = expandedId === score.id
@@ -89,7 +105,7 @@ export function ScoreHistoryTable({ scores }: { scores: any[] }) {
                 </tr>
                 {isExpanded && hasNotes && (
                   <tr className="bg-muted/20">
-                    <td colSpan={8} className="px-6 py-4 text-sm text-muted-foreground border-t border-white/5">
+                    <td colSpan={8} className="px-6 py-4 text-sm text-muted-foreground border-t border-border/50">
                       <div className="flex gap-2">
                         <span className="font-semibold text-foreground">Reflection:</span>
                         <p className="italic">{score.notes}</p>

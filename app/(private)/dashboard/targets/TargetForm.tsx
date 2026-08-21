@@ -7,11 +7,27 @@ import { NumericStepperBadge } from '@/components/shared/NumericStepperBadge'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 
+export interface TargetGoal {
+  id?: string
+  user_id?: string
+  target_overall?: number | null
+  target_listening?: number | null
+  target_reading?: number | null
+  target_writing?: number | null
+  target_speaking?: number | null
+  target_date?: string | null
+  is_active?: boolean
+  created_at?: string
+  updated_at?: string
+}
+
+export interface TargetFormProps {
+  initialGoal?: TargetGoal | null
+}
+
 export default function TargetManagementPage({
   initialGoal
-}: {
-  initialGoal: any
-}) {
+}: TargetFormProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
@@ -70,7 +86,7 @@ export default function TargetManagementPage({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="rounded-2xl border border-white/10 bg-card p-6 md:p-8 shadow-sm">
+        <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
           <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
             <span className="text-primary">01.</span> Set Your Goal
           </h2>
@@ -94,7 +110,6 @@ export default function TargetManagementPage({
                   value={targetDate}
                   onChange={(e) => setTargetDate(e.target.value)}
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-transparent transition-all"
-                  style={{ colorScheme: 'dark' }}
                 />
               </div>
             </div>

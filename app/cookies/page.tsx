@@ -19,11 +19,11 @@ export default function CookiesPage() {
           <span className="text-foreground">Cookie Policy</span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
           Cookie Policy
         </h1>
         
-        <div className="flex items-center gap-2 text-sm font-medium text-zinc-400">
+        <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
           <div className="flex items-center gap-1.5 bg-secondary border border-border px-3 py-1 rounded-full">
             <Calendar className="w-4 h-4 text-emerald-400" />
             Last updated: August 2026
@@ -49,7 +49,7 @@ export default function CookiesPage() {
         </div>
 
         {/* Right Column (Main Content Card) */}
-        <div className="lg:col-span-9 bg-card/40 border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 backdrop-blur-sm shadow-xl">
+        <div className="lg:col-span-9 bg-card/40 border border-border rounded-2xl p-6 sm:p-8 md:p-10 backdrop-blur-sm shadow-xl">
           <div className="space-y-12">
             
             {/* Section 1 */}
@@ -58,7 +58,7 @@ export default function CookiesPage() {
                 <span className="flex items-center justify-center w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 text-sm font-bold border border-emerald-500/30">1</span>
                 <h2 className="text-2xl font-bold text-foreground tracking-tight">What Are Cookies</h2>
               </div>
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                 Cookies are small text files that are stored on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide a better user experience.
               </p>
             </section>
@@ -85,7 +85,7 @@ export default function CookiesPage() {
                 <span className="flex items-center justify-center w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 text-sm font-bold border border-emerald-500/30">3</span>
                 <h2 className="text-2xl font-bold text-foreground tracking-tight">Essential Cookies</h2>
               </div>
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                 The only cookies we set are essential session cookies managed by Supabase. These tokens are required to maintain your logged-in state securely, keeping your dashboard and personal target goals private. Without these cookies, our authentication system cannot function.
               </p>
             </section>
@@ -96,7 +96,7 @@ export default function CookiesPage() {
                 <span className="flex items-center justify-center w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 text-sm font-bold border border-emerald-500/30">4</span>
                 <h2 className="text-2xl font-bold text-foreground tracking-tight">Managing Cookies</h2>
               </div>
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                 You can control and/or delete cookies as you wish using your browser settings.
               </p>
               

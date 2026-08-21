@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Send } from "lucide-react"
+import { Send, Mail } from "lucide-react"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -23,7 +23,13 @@ export default function ContactPage() {
       <div className="space-y-4 text-center mb-16">
         <h1 className="text-4xl font-bold tracking-tight">Contact & Support</h1>
         <p className="text-lg text-muted-foreground">
-          Have a question, feature request, or need help with your account? Fill out the form below or email us directly at <a href="mailto:support@targetband.com" className="text-primary hover:underline transition-colors">support@targetband.com</a>.
+          Have a question, feature request, or need help with your account? Fill out the form below or email us directly at <a
+            href="mailto:ieltstargetband@gmail.com"
+            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 font-medium text-sm transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:bg-emerald-500/20 hover:border-emerald-500/50 hover:text-emerald-300 ml-1"
+          >
+            <Mail className="w-3.5 h-3.5 inline-block text-emerald-400" />
+            ieltstargetband@gmail.com
+          </a>.
         </p>
       </div>
 

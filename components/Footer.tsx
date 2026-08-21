@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Twitter, Github, Linkedin } from "lucide-react"
+import { Twitter, Instagram, Mail } from "lucide-react"
 
 export default function Footer() {
   const pathname = usePathname()
@@ -24,9 +24,8 @@ export default function Footer() {
               Master your IELTS score with our instant converter, calculator, and practice tracker.
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="https://twitter.com/targetband" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors"><Twitter className="h-5 w-5" /></a>
-              <a href="https://github.com/targetband" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors"><Github className="h-5 w-5" /></a>
-              <a href="https://linkedin.com/company/targetband" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors"><Linkedin className="h-5 w-5" /></a>
+              <a href="https://www.instagram.com/targetbandielts/" target="_blank" rel="noopener noreferrer" aria-label="Follow TargetBand on Instagram" className="text-muted-foreground hover:text-foreground transition-colors"><Instagram className="h-5 w-5" /></a>
+              <a href="https://x.com/targetbandielts" target="_blank" rel="noopener noreferrer" aria-label="Follow TargetBand on X" className="text-muted-foreground hover:text-foreground transition-colors"><Twitter className="h-5 w-5" /></a>
             </div>
           </div>
 
@@ -47,7 +46,15 @@ export default function Footer() {
               <li><Link href="/#blog" className="hover:text-primary transition-colors">Blog</Link></li>
               <li><Link href="/#careers" className="hover:text-primary transition-colors">Careers</Link></li>
               <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
-              <li><a href="mailto:support@targetband.com" className="hover:text-primary transition-colors">Email Support</a></li>
+              <li>
+                <a 
+                  href="mailto:ieltstargetband@gmail.com" 
+                  className="text-muted-foreground hover:text-emerald-400 transition-colors inline-flex items-center gap-2"
+                >
+                  <Mail className="w-4 h-4" />
+                  ieltstargetband@gmail.com
+                </a>
+              </li>
             </ul>
           </div>
 
