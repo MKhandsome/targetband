@@ -4,11 +4,9 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { signUpWithEmail, signInWithGoogle } from "@/app/actions/auth"
 
 export default function SignUpPage() {
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -25,8 +23,7 @@ export default function SignUpPage() {
     if (result?.error) {
       toast.error(result.error)
     } else {
-      toast.success("Account created! Check your email for the OTP code.")
-      router.push(`/verify-otp?email=${encodeURIComponent(email)}`)
+      toast.success("Account created! Please check your email and click the confirmation link to activate your account.")
     }
   }
 
