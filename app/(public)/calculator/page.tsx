@@ -1,4 +1,4 @@
-import { CalculatorTool } from '@/components/tools/CalculatorTool'
+import { CalculatorTool } from '@/components/DynamicWrappers'
 
 export const metadata = {
   title: 'Overall Band Calculator | TargetBand',

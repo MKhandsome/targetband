@@ -1,4 +1,4 @@
-import { ConverterTool } from "@/components/tools/ConverterTool"
+import { ConverterTool } from '@/components/DynamicWrappers'
 
 export const metadata = {
   title: 'Raw Score to Band Converter | TargetBand',

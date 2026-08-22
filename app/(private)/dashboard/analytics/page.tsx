@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { AnalyticsChart } from './AnalyticsChart'
+import { AnalyticsChart } from '@/components/DynamicWrappers'
 import { TrendingUp, TrendingDown, Target, BrainCircuit, LineChart } from 'lucide-react'
 
 import { Suspense } from 'react'

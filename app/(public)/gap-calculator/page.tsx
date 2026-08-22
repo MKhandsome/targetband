@@ -1,4 +1,4 @@
-import { GapCalculatorTool } from '@/components/tools/GapCalculatorTool'
+import { GapCalculatorTool } from '@/components/DynamicWrappers'
 
 export const metadata = {
   title: 'Target Gap Calculator | TargetBand',

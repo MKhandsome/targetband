@@ -27,6 +27,12 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
+  // Only fetch user if we are on a protected or auth route
+  if (!request.nextUrl.pathname.startsWith('/dashboard') && 
+      !['/login', '/signup', '/forgot-password', '/reset-password'].includes(request.nextUrl.pathname)) {
+    return supabaseResponse
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -40,7 +46,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   // Redirect authenticated users away from auth pages
-  if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
+  if (user && ['/login', '/signup', '/forgot-password', '/reset-password'].includes(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)
