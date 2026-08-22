@@ -34,6 +34,9 @@ export async function loginWithEmail(formData: FormData) {
   })
 
   if (error) {
+    if (error.message === 'Invalid login credentials' || error.status === 400) {
+      return { error: 'Incorrect email or password. Please try again or reset your password.' }
+    }
     return { error: error.message }
   }
 

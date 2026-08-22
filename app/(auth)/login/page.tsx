@@ -78,7 +78,7 @@ function LoginContent() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium text-foreground">Password</label>
-              <a href="#" className="text-xs text-accent hover:underline underline-offset-4 font-medium transition-all">Forgot password?</a>
+              <Link href="/forgot-password" className="text-xs text-accent hover:underline underline-offset-4 font-medium transition-all">Forgot password?</Link>
             </div>
             <input 
               type="password" 
