@@ -120,9 +120,8 @@ export default function DashboardSidebar({ email }: { email: string }) {
             <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold flex-shrink-0 border border-primary/30">
               {email.charAt(0).toUpperCase()}
             </div>
-            <div className="overflow-hidden">
+            <div className="overflow-hidden flex flex-col justify-center">
               <p className="text-sm text-foreground truncate font-medium" title={email}>{email}</p>
-              <p className="text-xs text-muted-foreground">Pro Member</p>
             </div>
           </div>
         )}
